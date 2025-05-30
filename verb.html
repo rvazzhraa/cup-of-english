@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Comprehensive Grammar Guide</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #fcf6ff;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+    h1 {
+      text-align: center;
+      color: #6b28b7;
+      font-size: 2.5rem;
+      margin-top: 40px;
+      margin-bottom: 5px;
+    }
+    p.subtitle {
+      text-align: center;
+      color: #666;
+      margin-top: 0;
+      margin-bottom: 40px;
+      font-size: 1.1rem;
+    }
+
+    /* Container khusus untuk accordion cards saja */
+    .accordion-container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 30px 20px 50px;
+      background: white; /* background putih hanya di sini */
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+      flex-grow: 1;
+    }
+
+    .section-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: #5c2d91;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .section-title::before {
+      content: '📖';
+      font-size: 1.2rem;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .tab {
+      padding: 10px 16px;
+      background-color: white;
+      border-radius: 8px;
+      color: #5c5c5c;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid #eee;
+      transition: all 0.2s ease;
+    }
+    .tab:hover {
+      background-color: #f3e8ff;
+    }
+    .tab.active {
+      background-color: #e9d8ff;
+      color: #6b28b7;
+      font-weight: 600;
+    }
+
+    /* Accordion style */
+    .accordion {
+      border-radius: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #f0e6ff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      background-color: white;
+    }
+    .accordion-header {
+      padding: 16px;
+      font-size: 1rem;
+      cursor: pointer;
+      position: relative;
+      color: black; /* teks hitam sebelum dipencet */
+      background-color: white; /* putih sebelum dipencet */
+      border-radius: 8px 8px 0 0;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      font-weight: 600;
+      user-select: none;
+    }
+    .accordion-header::after {
+      content: '⌄';
+      position: absolute;
+      right: 20px;
+      transition: transform 0.3s ease, color 0.3s ease;
+      color: black;
+      font-weight: 600;
+    }
+    .accordion-header.active {
+      background-color: #d6c7fa; /* ungu super soft */
+      color: #4b3a7a; /* ungu gelap tapi lembut */
+    }
+    .accordion-header.active::after {
+      transform: rotate(180deg);
+      color: #4b3a7a;
+    }
+
+    .accordion-body {
+      padding: 0 16px 16px;
+      display: none;
+      color: #444; /* abu abu gelap */
+      border-top: 1px solid #eee;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+    .accordion-body p {
+      margin: 10px 0;
+      color: #444; /* abu abu gelap */
+    }
+
+    /* Card style for grammar details */
+    .grammar-card {
+      background-color: white;
+      padding: 15px 20px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+
+    /* Pink soft background for nouns body */
+    .nouns-body {
+      background-color: #fcecff;
+      padding: 16px;
+      border-radius: 0 0 8px 8px;
+      color: #444;
+      display: none; /* This will be controlled by JavaScript */
+    }
+
+    .nouns-body em,
+    .grammar-card em {
+      display: block;
+      color: #6b28b7;
+      font-style: italic;
+      margin-bottom: 6px;
+    }
+
+    .grammar-card strong {
+      display: block;
+      margin-top: 4px;
+      color: #555;
+    }
+
+    .noun-description {
+      margin-bottom: 20px;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    /* Footer */
+    footer {
+      background-color: white;
+      text-align: center;
+      padding: 15px 10px;
+      font-size: 0.9rem;
+      color: #555;
+      border-top: 1px solid #eee;
+      margin-top: auto;
+      user-select: none;
+    }
+
+    .formula-box {
+    background-color: #fe8fc51b;
+    border-left: 4px solid #fca7d1;
+    padding: 12px 15px;
+    margin: 15px 0;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .formula-title {
+    margin-top: 0;
+    color: #343a40;
+    font-size: 1.1em;
+  }
+
+  .formula-list {
+    margin-bottom: 0;
+    padding-left: 20px;
+  }
+
+  .formula-list li {
+    margin-bottom: 5px;
+  }
+
+  /* Existing Style Enhancements */
+  .grammar-card {
+    background-color: white;
+    border: 1px solid #dee2e6;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+  }
+
+  .example-label {
+    display: block;
+    color: #6c757d;
+    font-size: 0.9em;
+    margin-top: 5px;
+  }
+
+  </style>
+</head>
+<body>
+
+  <h1>Comprehensive Grammar Guide</h1>
+  <p class="subtitle">Master English grammar with detailed explanations and examples</p>
+
+  <div class="accordion-container">
+
+    <div class="section-title">Verb Categories</div>
+
+    <div class="tabs">
+      <div class="tab active">Verb Forms</div>
+      <div class="tab">Regular vs Irregular</div>
+      <div class="tab">Auxiliary Verbs</div>
+      <div class="tab">Modal Verbs</div>
+    </div>
+
+    <!-- Verb -->
+    <div class="accordion">
+      <div class="accordion-header">The Three Principal Verb Forms</div>
+      <div class="nouns-body">
+        <p class="noun-description">Most English verbs have three main forms (also called principal parts): the base form, the past form, and the past participle form.</p>
+        <div class="grammar-card">
+          <em>Base form: walk / Past: walked / Past Participle: walked</em>
+          Regular verb - past and past participle forms are identical
+        </div>
+        <div class="grammar-card">
+          <em>Base form: go / Past: went / Past Participle: gone</em>
+          Irregular verb - all three forms are different
+        </div>
+        <div class="grammar-card">
+          <em>Base form: see / Past: saw / Past Participle: seen</em>
+          Irregular verb - past and past participle forms different
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header">Base Form (Infinitive)</div>
+      <div class="nouns-body">
+        <p class="noun-description">The base form (also called the infinitive) is the form found in the dictionary and is used after 'to' in the full infinitive.</p>
+        <div class="grammar-card">
+          <em>I want to study English.</em>
+          Used with 'to' in full infinitive
+        </div>
+        <div class="grammar-card">
+          <em>You should help your sister.</em>
+          Used after modal verbs without 'to'
+        </div>
+        <div class="grammar-card">
+          <em>They make me laugh.</em>
+          Used as bare infinitive after certain verbs
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header">Past Form (Simple Past)</div>
+      <div class="nouns-body">
+        <p class="noun-description">The past form is used to talk about actions or situations in the past. For regular verbs, we add -ed to the base form.</p>
+        <div class="grammar-card">
+          <em>She worked yesterday.</em>
+          Regular verb: add -ed to base form
+        </div>
+        <div class="grammar-card">
+          <em>I saw a movie last night.</em>
+          Irregular verb: unique past form
+        </div>
+        <div class="grammar-card">
+          <em>They went to Paris last summer.</em>
+          Irregular verb: unique past form
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header">Past Participle</div>
+      <div class="nouns-body">
+        <p class="noun-description">The past participle is used to form perfect tenses and passive voice. For regular verbs, it's the same as the past form (-ed).</p>
+        <div class="grammar-card">
+          <em>I have finished my homework.</em>
+          Used in present perfect tense
+        </div>
+        <div class="grammar-card">
+          <em>The window was broken by the storm.</em>
+          Used in passive voice
+        </div>
+        <div class="grammar-card">
+          <em>She had already eaten when I arrived.</em>
+          Used in past perfect tense
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header">Common Irregular Verbs</div>
+      <div class="nouns-body">
+        <p class="noun-description">Irregular verbs don't follow the pattern of adding -ed for past and past participle forms.</p>
+        <div class="grammar-card">
+          <em>be → was/were → been</em>
+          One of the most irregular verbs in English
+        </div>
+        <div class="grammar-card">
+          <em>do → did → done</em>
+          Used as main verb and as auxiliary verb
+        </div>
+        <div class="grammar-card">
+          <em>eat → ate → eaten</em>
+          Different forms for all three principal parts
+        </div>
+        <div class="grammar-card">
+          <em>go → went → gone</em>
+          Completely different word for past form
+        </div>
+        <div class="grammar-card">
+          <em>have → had → had</em>
+          Past and past participle forms are  identical
+        </div>
+        <div class="grammar-card">
+          <em>make → made → made</em>
+          Past and past participle forms are identical
+        </div>
+        <div class="grammar-card">
+          <em>see → saw → seen</em>
+          Different forms for all three principal parts
+        </div>
+        <div class="grammar-card">
+          <em>take → took → taken</em>
+          Different forms for all three principal parts
+        </div>
+      </div>
+    </div>
+
+    <!-- Regular vs Irregular -->
+    <div class="accordion">
+      <div class="accordion-header">Regular Verbs</div>
+      <div class="nouns-body">
+        <p class="noun-description">Regular verbs form their past tense and past participle by adding -ed (or sometimes just -d) to the base form.</p>
+        <div class="grammar-card">
+          <em>work → worked → worked</em>
+          Simply add -ed to form both past and past participle
+        </div>
+        <div class="grammar-card">
+          <em>play → played → played</em>
+          For verbs ending in 'y' preceded by a vowel, just add -ed
+        </div>
+        <div class="grammar-card">
+          <em>talk → talked → talked</em>
+          Standard -ed ending
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header">Spelling Rules for Regular Verbs</div>
+      <div class="nouns-body">
+        <p class="noun-description">When adding -ed to regular verbs, there are some spelling rules to follow.</p>
+        <div class="grammar-card">
+          <em>study → studied → studied</em>
+          For verbs ending in consonant + y: change y to i, then add -ed
+        </div>
+        <div class="grammar-card">
+          <em>stop → stopped → stopped</em>
+          For verbs ending in consonant + vowel + consonant: double the final consonant, then add -ed
+        </div>
+        <div class="grammar-card">
+          <em>like → liked → liked</em>
+          For verbs ending in 'e': just add -d
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header">Irregular Verbs</div>
+      <div class="nouns-body">
+        <p class="noun-description">Irregular verbs do not follow the regular pattern of adding -ed for past forms. Each has its own unique forms.</p>
+        <div class="grammar-card">
+          <em>go → went → gone</em>
+          All three forms are different
+        </div>
+        <div class="grammar-card">
+          <em>bring → brought → brought</em>
+          Past and past participle forms are identical but don't follow -ed pattern
+        </div>
+        <div class="grammar-card">
+          <em>catch → caught → caught</em>
+          Vowel change plus -ght ending
+        </div>
+        <div class="grammar-card">
+          <em>read → read → read</em>
+          Spelled the same but pronounced differently
+      </div>
+    </div>
+    </div>
+
+     <div class="accordion">
+      <div class="accordion-header">Categories of Irregular Verbs</div>
+      <div class="nouns-body">
+        <p class="noun-description">Irregular verbs can be grouped into patterns that may help with memorization.</p>
+        <div class="grammar-card">
+          <em>keep → kept, sleep → slept</em>
+          Verbs changing from 'ee' to 'ep'
+        </div>
+        <div class="grammar-card">
+          <em>sell → sold, tell → told</em>
+          Verbs changing from 'e' to 'o'
+        </div>
+        <div class="grammar-card">
+          <em>break → broke → broken, speak → spoke → spoken</em>
+          Verbs with similar vowel change patterns
+        </div>
+    </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header">Primary Auxiliary Verbs</div>
+      <div class="nouns-body">
+        <p class="noun-description">Be, do, and have can function as main verbs or as auxiliary (helping) verbs.</p>
+        <div class="grammar-card">
+          <em>I am studying English (be)</em>
+          Be as auxiliary in continuous tense
+        </div>
+        <div class="grammar-card">
+          <em>She does not like coffee (do)</em>
+          Do as auxiliary in negative sentences
+        </div>
+        <div class="grammar-card">
+          <em>They have finished their work (have)</em>
+          Have as auxiliary in perfect tense
+        </div>
+    </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header">Forms of Be</div>
+      <div class="nouns-body">
+        <p class="noun-description">Be is the most common auxiliary verb and has various forms depending on tense and subject.</p>
+        <div class="formula-box">
+    <h3 class="formula-title">Formula:</h3>
+    <ul class="formula-list">
+      <li>Present: am (I), is (he/she/it), are (you/we/they)</li>
+      <li>Past: was (I/he/she/it), were (you/we/they)</li>
+    </ul>
+</div>
+        <div class="grammar-card">
+          <em>I am studying English (be)</em>
+          Present continuous with 'am'
+        </div>
+        <div class="grammar-card">
+          <em>She was studying when I called.</em>
+          Past continuous with 'was'
+        </div>
+        <div class="grammar-card">
+          <em>The documents are being processed.</em>
+          Passive voice with 'are being'
+        </div>
+        <div class="grammar-card">
+          <em>English is spoken worldwide.</em>
+          Passive voice with 'is'
+        </div>
+    </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header">Forms of Do</div>
+      <div class="nouns-body">
+        <p class="noun-description">Do is used to form questions and negative statements in simple present and past tenses.</p>
+        <div class="formula-box">
+    <h3 class="formula-title">Formula:</h3>
+    <ul class="formula-list">
+      <li>Present: do (I/you/we/they), does (he/she/it)</li>
+      <li>Past: did (all subjects)</li>
+    </ul>
+</div>
+        <div class="grammar-card">
+          <em>Do you speak English?</em>
+          Question in present simple
+        </div>
+        <div class="grammar-card">
+          <em>She does not work here.</em>
+          She does not work here
+        </div>
+        <div class="grammar-card">
+          <em>Did they arrive on time?</em>
+          Question in past simple
+        </div>
+        <div class="grammar-card">
+          <em>We did not see the movie.</em>
+          Negative in past simple
+        </div>
+    </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header">Forms of Have</div>
+      <div class="nouns-body">
+        <p class="noun-description">Have is used to form perfect tenses.</p>
+        <div class="formula-box">
+    <h3 class="formula-title">Formula:</h3>
+    <ul class="formula-list">
+      <li>Present: have (I/you/we/they), has (he/she/it)</li>
+      <li>Past: had (all subjects)</li>
+    </ul>
+</div>
+        <div class="grammar-card">
+          <em>I have lived here for ten years.</em>
+          Present perfect with 'have'
+        </div>
+        <div class="grammar-card">
+          <em>She has already left.</em>
+          Present perfect with 'has'
+        </div>
+        <div class="grammar-card">
+          <em>They had finished dinner before we arrived.</em>
+          Past perfect with 'had'
+        </div>
+    </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header">Modal Verbs</div>
+      <div class="nouns-body">
+        <p class="noun-description">Modal verbs express necessity, possibility, permission, ability, or obligation. They are followed by the base form of the main verb (without 'to').</p>
+        <div class="grammar-card">
+          <em>I can swim.</em>
+          Ability: can
+        </div>
+        <div class="grammar-card">
+          <em>You should study more.</em>
+          Advice/recommendation: should
+        </div>
+        <div class="grammar-card">
+          <em>She must finish this today.</em>
+          Obligation/necessity: must
+        </div>
+    </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header">Can/Could</div>
+      <div class="nouns-body">
+        <p class="noun-description">Used to express ability, possibility, or to ask for permission.</p>
+        <div class="grammar-card">
+          <em>I can speak three languages/I could swim when I was five</em>
+          Present ability/Past ability
+        </div>
+        <div class="grammar-card">
+          <em>Can you help me with this?</em>
+          Request for help
+        </div>
+        <div class="grammar-card">
+          <em>Could I borrow your pen?</em>
+          Polite request (more formal than 'can')
+        </div>
+    </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header">Must/Have to</div>
+      <div class="nouns-body">
+        <p class="noun-description">Used to express obligation, necessity, or strong probability.</p>
+        <div class="grammar-card">
+          <em>Students must wear uniforms at this school.</em>
+          Strong obligation (rule)
+        </div>
+        <div class="grammar-card">
+          <em>I have to finish this report by tomorrow.</em>
+          External obligation (necessity)
+        </div>
+        <div class="grammar-card">
+          <em>She must be tired after working all night.</em>
+          Logical deduction - strong probability
+        </div>
+    </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header">Should/Ought to</div>
+      <div class="nouns-body">
+        <p class="noun-description">Used to express advice, recommendation, or expectation.</p>
+        <div class="grammar-card">
+          <em>You should exercise regularly.</em>
+         Advice or recommendation
+        </div>
+        <div class="grammar-card">
+          <em>We should arrive by 9:00 PM.</em>
+          Expectation
+        </div>
+        <div class="grammar-card">
+          <em>You should have called me.</em>
+          Past recommendation that didn't happen
+        </div>
+    </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header">May/Might</div>
+      <div class="nouns-body">
+        <p class="noun-description">Used to express possibility or permission.</p>
+        <div class="grammar-card">
+          <em>It may rain later today.</em>
+         Possibility (more certain than 'might')
+        </div>
+        <div class="grammar-card">
+          <em>They might not come to the party.</em>
+          Possibility (less certain)
+        </div>
+        <div class="grammar-card">
+          <em>May I come in?</em>
+          Asking for permission (formal)
+        </div>
+    </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header">Will/Would</div>
+      <div class="nouns-body">
+        <p class="noun-description">Used to express future actions, willingness, or polite requests.</p>
+        <div class="grammar-card">
+          <em>I will help you tomorrow.</em>
+         Future promise or intention
+        </div>
+        <div class="grammar-card">
+          <em>Would you mind closing the door?</em>
+          Polite request
+        </div>
+        <div class="grammar-card">
+          <em>She said she would call me.</em>
+          Future in the past
+        </div>
+    </div>
+    </div>
+
+
+
+  <a href="index.html" class="floating-home-button">
+  <span class="button-icon">←</span>
+  <span class="button-text">Home</span>
+</a>
+
+<style>
+  .floating-home-button {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    display: inline-flex;
+    align-items: center;
+    background: linear-gradient(135deg, #7c3aed 0%, #6b21a8 100%);
+    color: white;
+    padding: 0.7rem 1.2rem; /* Reduced padding */
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem; /* Smaller font */
+    box-shadow: 0 4px 12px rgba(107, 33, 168, 0.4);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 1000;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(-1deg); } /* Reduced rotation */
+    50% { transform: translateY(-8px) rotate(1deg); } /* Smaller bounce */
+  }
+
+  .floating-home-button:hover {
+    transform: translateY(-3px) scale(1.05) rotate(0deg); /* More subtle hover */
+    box-shadow: 0 8px 16px rgba(107, 33, 168, 0.5);
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    animation: none;
+  }
+
+  .button-icon {
+    margin-right: 6px; /* Tighter spacing */
+    font-size: 1rem; /* Smaller icon */
+    transition: transform 0.3s ease;
+  }
+
+  /* Smaller pulse effect */
+  @keyframes pulse {
+    0% { transform: scale(1); opacity: 0; }
+    50% { opacity: 0.7; }
+    100% { transform: scale(1.15); opacity: 0; } /* Reduced scale */
+  }
+
+  /* Mobile version */
+  @media (max-width: 768px) {
+    .floating-home-button {
+      padding: 0.6rem;
+      bottom: 15px;
+      right: 15px;
+    }
+    .button-text {
+      display: none;
+    }
+    .button-icon {
+      font-size: 1.2rem;
+      margin-right: 0;
+    }
+  }
+</style>
+
+  <script>
+  // 1. ACCORDION FUNCTIONALITY - untuk buka/tutup konten
+  const accordionHeaders = document.querySelectorAll('.accordion-header');
+  
+  accordionHeaders.forEach(header => {
+    header.addEventListener('click', function() {
+      // Toggle class active untuk styling
+      this.classList.toggle('active');
+      
+      // Ambil element contentnya
+      const content = this.nextElementSibling;
+      
+      // Toggle tampilan content
+      if (content.style.display === 'block') {
+        content.style.display = 'none';
+      } else {
+        content.style.display = 'block';
+      }
+    });
+  });
+
+  // 2. TAB FUNCTIONALITY - untuk ganti kategori
+  const tabs = document.querySelectorAll('.tab');
+  const allAccordions = document.querySelectorAll('.accordion');
+  
+  // Daftar konten untuk masing-masing tab
+  const tabContents = {
+    'Verb Forms': ['The Three Principal Verb Forms', 'Base Form (Infinitive)',"Past Form (Simple Past)", 'Past Participle', 'Common Irregular Verbs'],
+    'Regular vs Irregular': ['Regular Verbs', 'Spelling Rules for Regular Verbs', 'Irregular Verbs', 'Categories of Irregular Verbs'],
+    'Auxiliary Verbs': ['Primary Auxiliary Verbs', 'Forms of Be', 'Forms of Have', 'Forms of Do'],
+    'Modal Verbs': ['Modal Verbs', 'Can/Could', 'Must/Have to', 'Should/Ought to', 'May/Might', 'Will/Would' ] 
+  };
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', function() {
+      // 1. Reset semua tab
+      tabs.forEach(t => t.classList.remove('active'));
+      // Aktifkan tab yang diklik
+      this.classList.add('active');
+      
+      // 2. Sembunyikan semua accordion
+      allAccordions.forEach(acc => {
+        acc.style.display = 'none';
+        // Tutup juga contentnya
+        acc.querySelector('.nouns-body').style.display = 'none';
+        acc.querySelector('.accordion-header').classList.remove('active');
+      });
+      
+      // 3. Tampilkan accordion yang sesuai dengan tab
+      const tabName = this.textContent.trim();
+      if (tabContents[tabName]) {
+        tabContents[tabName].forEach(title => {
+          document.querySelectorAll('.accordion-header').forEach(header => {
+            if (header.textContent.trim() === title) {
+              header.parentElement.style.display = 'block';
+            }
+          });
+        });
+      }
+    });
+  });
+
+  // 3. Saat pertama load, aktifkan tab pertama
+  document.querySelector('.tab.active').click();
+</script>
+</head>
+
+</body>
+</html>

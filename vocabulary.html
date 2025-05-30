@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vocabulary Builder</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f8f0f8;
+    }
+    header {
+      text-align: center;
+      padding: 2rem 1rem 0.5rem;
+    }
+    header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #6b21a8;
+      margin-bottom: 0.2rem;
+    }
+    header p {
+      font-size: 1rem;
+      color: #555;
+    }
+    .search-container {
+      display: flex;
+      justify-content: center;
+      margin: 1rem;
+    }
+    .search-container input {
+      padding: 0.75rem;
+      width: 90%;
+      max-width: 600px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    .tabs {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+    .tab {
+      background: #eee;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .tab:hover {
+      background: #d8b4fe;
+      transform: scale(1.05);
+    }
+    .tab.active {
+      background: #d8b4fe;
+      color: #6b21a8;
+      font-weight: 600;
+    }
+    .container {
+      background-color: #ffffff;
+      border-radius: 15px;
+      padding: 2rem;
+      margin: 2rem auto;
+      max-width: 1200px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+    .card {
+      background: #e0edff;
+      padding: 1rem;
+      border-radius: 10px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+    }
+    .card h3 {
+      margin: 0 0 0.5rem;
+      color: #6b21a8;
+      font-weight: 600;
+    }
+    .card p {
+      margin: 0.25rem 0;
+    }
+    .card p.translation {
+      color: #047857;
+      font-weight: 600;
+    }
+    .card p.example {
+      font-style: italic;
+      color: #444;
+    }
+    .footer {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      background: white;
+      padding: 0.3rem 0.75rem;
+      border-radius: 10px;
+      box-shadow: 0 0 6px rgba(0,0,0,0.1);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+    
+
+    <a href="index.html" class="floating-home-button">
+  <span class="button-icon">←</span>
+  <span class="button-text">Home</span>
+</a>
+
+<style>
+  .floating-home-button {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    display: inline-flex;
+    align-items: center;
+    background: linear-gradient(135deg, #7c3aed 0%, #6b21a8 100%);
+    color: white;
+    padding: 0.7rem 1.2rem; /* Reduced padding */
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem; /* Smaller font */
+    box-shadow: 0 4px 12px rgba(107, 33, 168, 0.4);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 1000;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(-1deg); } /* Reduced rotation */
+    50% { transform: translateY(-8px) rotate(1deg); } /* Smaller bounce */
+  }
+
+  .floating-home-button:hover {
+    transform: translateY(-3px) scale(1.05) rotate(0deg); /* More subtle hover */
+    box-shadow: 0 8px 16px rgba(107, 33, 168, 0.5);
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    animation: none;
+  }
+
+  .button-icon {
+    margin-right: 6px; /* Tighter spacing */
+    font-size: 1rem; /* Smaller icon */
+    transition: transform 0.3s ease;
+  }
+
+  /* Smaller pulse effect */
+  @keyframes pulse {
+    0% { transform: scale(1); opacity: 0; }
+    50% { opacity: 0.7; }
+    100% { transform: scale(1.15); opacity: 0; } /* Reduced scale */
+  }
+
+  /* Mobile version */
+  @media (max-width: 768px) {
+    .floating-home-button {
+      padding: 0.6rem;
+      bottom: 15px;
+      right: 15px;
+    }
+    .button-text {
+      display: none;
+    }
+    .button-icon {
+      font-size: 1.2rem;
+      margin-right: 0;
+    }
+  }
+
+  
+</style>
+
+  <header>
+    <h1>Vocabulary Builder</h1>
+    <p>
+Learn and practice common English words and phrases</p>
+  </header>
+
+  
+  <div class="search-container">
+    <input type="text" placeholder="Search vocabulary..." id="searchBox" oninput="filterCards()" />
+  </div>
+  <div class="tabs" id="tabMenu">
+    <div class="tab active" onclick="showCategory('greetings')">Greetings</div>
+    <div class="tab" onclick="showCategory('numbers')">Numbers</div>
+    <div class="tab" onclick="showCategory('colors')">Colors</div>
+    <div class="tab" onclick="showCategory('food')">Food</div>
+    <div class="tab" onclick="showCategory('family')">Family</div>
+    <div class="tab" onclick="showCategory('travel')">Travel</div>
+    <div class="tab" onclick="showCategory('weather')">Weather</div>
+    <div class="tab" onclick="showCategory('time')">Time</div>
+  </div>
+  <div class="container">
+    <div class="cards" id="cardContainer">
+      <!-- Cards will be inserted here via JavaScript -->
+    </div>
+  </div
+    <div class="footer">
+
+  <script>
+    const vocabulary = {
+      greetings: [
+        { word: "Hello", translation: "Halo", example: "Hello, how are you today?" },
+        { word: "Good morning", translation: "Selamat pagi", example: "Good morning! Did you sleep well?" },
+        { word: "Good afternoon", translation: "Selamat siang", example: "Good afternoon! Have you had lunch?" },
+        { word: "Good evening", translation: "Selamat malam", example: "Good evening! It’s a beautiful night." },
+        { word: "Thank you", translation: "Terima kasih", example: "Thank you for your help." },
+        { word: "You're welcome", translation: "Sama-sama", example: "You're welcome, it was my pleasure." },
+        { word: "Goodbye", translation: "Selamat tinggal", example: "Goodbye! See you again." },
+        { word: "Nice to meet you", translation: "Senang bertemu denganmu", example: "Nice to meet you!" },
+        { word: "Good night", translation: "Selamat malam (untuk tidur)", example: "Good night! Sweet dreams." },  
+        { word: "Hey", translation: "Hei", example: "Hey, long time no see!" },  
+        { word: "Good day", translation: "Selamat siang/sore", example: "Good day! How’s the weather?" },  
+{ word: "How’s it going?", translation: "Bagaimana kabarmu?", example: "Hey John, how’s it going?" },  
+{ word: "How are you?", translation: "Apa kabar?", example: "How are you? You look happy today!" },  
+{ word: "Greetings", translation: "Salam", example: "Greetings, everyone!" },
+{ word: "See you tomorrow", translation: "Sampai jumpa besok", example: "See you tomorrow at school!" },
+{ word: "Long time no see", translation: "Lama tidak bertemu", example: "Long time no see! Where have you been?" },  
+{ word: "Welcome", translation: "Selamat datang", example: "Welcome to our school!" },  
+{ word: "Pleased to meet you", translation: "Senang bertemu denganmu", example: "Pleased to meet you, Mr. Smith." },  
+{ word: "Good to see you", translation: "Senang melihatmu", example: "Good to see you again!" },  
+{ word: "How have you been?", translation: "Bagaimana kabarmu belakangan ini?", example: "How have you been? It’s been years!" },   
+{ word: "Bye", translation: "Dadah", example: "Bye! See you tomorrow." },  
+{ word: "Take it easy", translation: "Santai saja", example: "Take it easy, don’t stress!" },  
+{ word: "Farewell", translation: "Selamat jalan", example: "Farewell, my friend." },  
+{ word: "Until next time", translation: "Sampai jumpa lagi", example: "Until next time, take care!" }  
+      ],
+      numbers: [
+        { word: "One", translation: "Satu", example: "I have one apple." },
+        { word: "Two", translation: "Dua", example: "She has two cats." },
+        { word: "Three", translation: "Tiga", example: "We saw three birds." },
+        { word: "Four", translation: "Empat", example: "He bought four pens." },
+        { word: "Five", translation: "Lima", example: "There are five books on the table." },
+        { word: "Six", translation: "Enam", example: "My sister is six years old." },  
+{ word: "Seven", translation: "Tujuh", example: "There are seven days in a week." },  
+{ word: "Eight", translation: "Delapan", example: "An octopus has eight legs." },  
+{ word: "Nine", translation: "Sembilan", example: "I ate nine strawberries." },  
+{ word: "Ten", translation: "Sepuluh", example: "Ten fingers on my hands." },
+{ word: "Twelve", translation: "Dua belas", example: "Twelve months in a year." },  
+{ word: "Fifteen", translation: "Lima belas", example: "She wakes up at fifteen past seven." },  
+{ word: "Twenty", translation: "Dua puluh", example: "That shirt costs twenty dollars." },  
+{ word: "Fifty", translation: "Lima puluh", example: "The speed limit is fifty kilometers per hour." },  
+{ word: "One hundred", translation: "Seratus", example: "This book has one hundred pages." },  
+{ word: "Three hundred", translation: "Tiga ratus", example: "The temple is three hundred years old." },  
+{ word: "One thousand", translation: "Seribu", example: "Mount Everest is one thousand meters tall." },  
+{ word: "Ten thousand", translation: "Sepuluh ribu", example: "That car costs ten thousand dollars!" },  
+{ word: "Zero", translation: "Nol", example: "My score was zero because I didn’t study." },  
+{ word: "A dozen", translation: "Satu lusin", example: "She bought a dozen eggs." }
+      ],
+      colors: [
+        { word: "Red", translation: "Merah", example: "The apple is red." },  
+{ word: "Blue", translation: "Biru", example: "He wears a blue shirt." },  
+{ word: "Green", translation: "Hijau", example: "The leaves are green." },  
+{ word: "Yellow", translation: "Kuning", example: "The sun looks yellow." },  
+{ word: "Black", translation: "Hitam", example: "The bag is black." },  
+{ word: "White", translation: "Putih", example: "She painted the wall white." },  
+{ word: "Pink", translation: "Merah muda", example: "Her favorite dress is pink." },  
+{ word: "Orange", translation: "Jingga", example: "The tiger has orange stripes." },  
+{ word: "Purple", translation: "Ungu", example: "Grapes can be purple or green." },  
+{ word: "Gray", translation: "Abu-abu", example: "The sky turns gray before rain." },   
+{ word: "Gold", translation: "Emas", example: "The Olympic medal is gold." },  
+{ word: "Silver", translation: "Perak", example: "Her necklace is made of silver." },  
+{ word: "Turquoise", translation: "Pirus", example: "The sea in Bali is turquoise." },  
+{ word: "Maroon", translation: "Merah marun", example: "His school tie is maroon." },  
+{ word: "Beige", translation: "Krem", example: "The sofa is beige." },  
+{ word: "Sky blue", translation: "Biru langit", example: "Her eyes are sky blue." },  
+{ word: "Emerald", translation: "Zamrud", example: "The emerald stone is very expensive." },  
+{ word: "Coral", translation: "Koral", example: "She loves coral lipstick." },
+{ word: "Lavender", translation: "Lavender", example: "The garden has lavender flowers." },
+{ word: "Colorful", translation: "Warna-warni", example: "She wore a colorful dress to the party." }
+      ],
+      food: [ 
+{ word: "Rice", translation: "Nasi", example: "I eat rice every day." },  
+{ word: "Chicken", translation: "Ayam", example: "Chicken soup is my favorite." },  
+{ word: "Vegetables", translation: "Sayuran", example: "Eat vegetables to stay healthy." },  
+{ word: "Fruit", translation: "Buah", example: "I love tropical fruit." },  
+{ word: "Fish", translation: "Ikan", example: "We had grilled fish for dinner." },  
+{ word: "Noodles", translation: "Mie", example: "Mie goreng is delicious!" },  
+{ word: "Tempeh", translation: "Tempe", example: "Tempe is a protein-rich Indonesian food." },  
+{ word: "Sambal", translation: "Sambal", example: "Be careful, this sambal is very spicy!" },  
+{ word: "Satay", translation: "Sate", example: "Satay with peanut sauce is a must-try." },  
+{ word: "Pizza", translation: "Pizza", example: "Let’s order pizza for movie night!" },  
+{ word: "Pasta", translation: "Pasta", example: "She cooks pasta with creamy sauce." },  
+{ word: "Sushi", translation: "Sushi", example: "We ate sushi at the Japanese restaurant." },
+{ word: "Burger", translation: "Burger", example: "I love a good cheeseburger." },  
+{ word: "Salad", translation: "Salad", example: "A fresh salad is perfect for lunch." },  
+{ word: "Soup", translation: "Sup", example: "Chicken soup warms me up." },  
+{ word: "Cake", translation: "Kue", example: "She baked a chocolate cake." },  
+{ word: "Ice cream", translation: "Es krim", example: "Ice cream is my favorite dessert." },  
+{ word: "Bread", translation: "Roti", example: "I like to eat bread with butter." },
+{ word: "Cheese", translation: "Keju", example: "Cheese goes well with crackers." },
+{ word: "Chocolate", translation: "Cokelat", example: "Chocolate is a sweet treat." }
+      ],
+      family: [
+{ word: "Mother", translation: "Ibu", example: "My mother is kind." },
+{ word: "Father", translation: "Ayah", example: "My father works hard." },
+{ word: "Brother", translation: "Saudara laki-laki", example: "My brother is funny." },
+{ word: "Sister", translation: "Saudara perempuan", example: "My sister is younger than me." },
+{ word: "Parents", translation: "Orang tua", example: "My parents live in Jakarta." },
+{ word: "Grandmother", translation: "Nenek", example: "My grandmother makes the best cookies." },
+{ word: "Grandfather", translation: "Kakek", example: "My grandfather tells great stories." },
+{ word: "Uncle", translation: "Paman", example: "My uncle is a doctor." },
+{ word: "Aunt", translation: "Bibi", example: "I visit my aunt every Sunday." },
+{ word: "Cousin", translation: "Sepupu", example: "I play football with my cousin." },
+{ word: "Husband", translation: "Suami", example: "Her husband is from Bandung." },
+{ word: "Wife", translation: "Istri", example: "My wife loves gardening." },
+{ word: "Father-in-law", translation: "Ayah mertua", example: "My father-in-law is retired." },
+{ word: "Mother-in-law", translation: "Ibu mertua", example: "We had dinner with my mother-in-law." },
+{ word: "Son", translation: "Anak laki-laki", example: "Their son just started school." },
+{ word: "Daughter", translation: "Anak perempuan", example: "My daughter dances ballet." },
+{ word: "Children", translation: "Anak-anak", example: "The children are playing outside." },
+{ word: "Twins", translation: "Kembar", example: "They are identical twins." },
+{ word: "Only child", translation: "Anak tunggal", example: "As an only child, I'm close to my parents." },
+{ word: "Stepfather", translation: "Ayah tiri", example: "My stepfather is very supportive." }
+      ],
+      travel: [
+{ word: "Airplane", translation: "Pesawat", example: "We flew by airplane to Jakarta." },  
+{ word: "Train", translation: "Kereta api", example: "The train to Bandung is very fast." },  
+{ word: "Bus", translation: "Bis", example: "I take the bus to work every day." },  
+{ word: "Taxi", translation: "Taksi", example: "Let's take a taxi to the hotel." },  
+{ word: "Boat", translation: "Kapal", example: "We crossed the river by boat." },  
+{ word: "Hotel", translation: "Hotel", example: "Our hotel has a beautiful swimming pool." },  
+{ word: "Airport", translation: "Bandara", example: "Please arrive at the airport 2 hours early." },  
+{ word: "Beach", translation: "Pantai", example: "The children are playing at the beach." },  
+{ word: "Restaurant", translation: "Restoran", example: "This restaurant serves delicious seafood." },  
+{ word: "Market", translation: "Pasar", example: "We bought fresh fruit at the traditional market." },  
+{ word: "Depart", translation: "Berangkat", example: "Our flight will depart at 3 PM." },  
+{ word: "Arrive", translation: "Tiba", example: "We will arrive in Yogyakarta tonight." },  
+{ word: "Explore", translation: "Jelajahi", example: "Let's explore the old city tomorrow!" },  
+{ word: "Book", translation: "Pesan", example: "I need to book a hotel for our trip." },  
+{ word: "Pack", translation: "Berkemas", example: "Don't forget to pack your toothbrush." },  
+{ word: "Luggage", translation: "Koper", example: "My luggage is too heavy for this flight." },  
+{ word: "Ticket", translation: "Tiket", example: "I bought two tickets for the concert." },  
+{ word: "Passport", translation: "Paspor", example: "Always keep your passport in a safe place." },  
+{ word: "Map", translation: "Peta", example: "We used a map to find the museum." },  
+{ word: "Souvenir", translation: "Oleh-oleh", example: "I bought souvenirs for all my friends." }
+      ],
+      weather: [
+        { word: "Sunny", translation: "Cerah", example: "It is sunny today." },
+{ word: "Rainy", translation: "Hujan", example: "Take an umbrella, it's rainy." },
+{ word: "Hot", translation: "Panas", example: "Summer in this city is very hot." },
+{ word: "Cloudy", translation: "Berawan", example: "The sky looks cloudy." },
+{ word: "Stormy", translation: "Badai", example: "The weather turned stormy." },
+{ word: "Windy", translation: "Berangin", example: "It's very windy outside." },
+{ word: "Snowy", translation: "Bersalju", example: "It was snowy last night." },
+{ word: "Cold", translation: "Dingin", example: "The water is too cold to swim." },
+{ word: "Misty", translation: "Kabut", example: "The mountains are misty in the morning." },
+{ word: "Humid", translation: "Lembab", example: "The air feels humid today." },
+{ word: "Dry", translation: "Kering", example: "The soil becomes dry in summer." },
+{ word: "Foggy", translation: "Berkabut", example: "Drive carefully, it's foggy." },
+{ word: "Drizzle", translation: "Gerimis", example: "Just a light drizzle, no need for an umbrella." },
+{ word: "Thunder", translation: "Petir", example: "The thunder sounds scary at night." },
+{ word: "Lightning", translation: "Kilat", example: "Lightning flashed across the sky." },
+{ word: "Hail", translation: "Hujan es", example: "Hail damaged the car windows." },
+{ word: "Flood", translation: "Banjir", example: "The streets are closed due to flood." },
+{ word: "Drought", translation: "Kekeringan", example: "Farmers suffer during drought." },
+{ word: "Breeze", translation: "Angin sepoi-sepoi", example: "A cool breeze makes the evening pleasant." },
+{ word: "Heatwave", translation: "Gelombang panas", example: "A heatwave is expected this weekend." },
+      ],
+      time: [
+        // Parts of the Day
+{ word: "Morning", translation: "Pagi", example: "I drink coffee every morning." },
+{ word: "Afternoon", translation: "Siang", example: "Let's meet this afternoon." },
+{ word: "Evening", translation: "Sore", example: "We watch TV in the evening." },
+{ word: "Night", translation: "Malam", example: "Stars are visible at night." },
+{ word: "Midnight", translation: "Tengah malam", example: "She studies until midnight." },
+{ word: "Dawn", translation: "Fajar", example: "We left at dawn." },
+{ word: "Sunrise", translation: "Matahari terbit", example: "The sunrise was beautiful." },
+{ word: "Sunset", translation: "Matahari terbenam", example: "Let's walk during sunset." },
+
+// Time Units
+{ word: "Second", translation: "Detik", example: "Wait just a second!" },
+{ word: "Minute", translation: "Menit", example: "The bus comes every 15 minutes." },
+{ word: "Hour", translation: "Jam", example: "The movie lasts two hours." },
+{ word: "Day", translation: "Hari", example: "There are 7 days in a week." },
+{ word: "Week", translation: "Minggu", example: "I'll visit next week." },
+{ word: "Month", translation: "Bulan", example: "Her birthday is next month." },
+{ word: "Year", translation: "Tahun", example: "We've lived here for 5 years." },
+
+// Time Expressions
+{ word: "Now", translation: "Sekarang", example: "I'm busy now." },
+{ word: "Later", translation: "Nanti", example: "See you later!" },
+{ word: "Soon", translation: "Segera", example: "Dinner will be ready soon." },
+{ word: "Early", translation: "Awal", example: "She wakes up early." },
+{ word: "Late", translation: "Terlambat", example: "Don't be late for school." }
+      ]
+    };
+
+    
+
+    let currentCategory = 'greetings';
+
+    function renderCards() {
+      const container = document.getElementById('cardContainer');
+      const search = document.getElementById('searchBox').value.toLowerCase();
+      const cards = vocabulary[currentCategory].filter(entry =>
+        entry.word.toLowerCase().includes(search) ||
+        entry.translation.toLowerCase().includes(search) ||
+        entry.example.toLowerCase().includes(search)
+      ).map(entry => `
+        <div class="card">
+          <h3>${entry.word}</h3>
+          <p class="translation">${entry.translation}</p>
+          <p class="example">${entry.example}</p>
+        </div>
+      `).join('');
+      container.innerHTML = cards;
+    }
+
+    function showCategory(category) {
+      document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+      [...document.querySelectorAll('.tab')].find(tab => tab.textContent.toLowerCase() === category).classList.add('active');
+      currentCategory = category;
+      renderCards();
+    }
+
+    function filterCards() {
+      renderCards();
+    }
+
+    window.onload = () => {
+      renderCards();
+    }
+  </script>
+
+</body>
+</html>

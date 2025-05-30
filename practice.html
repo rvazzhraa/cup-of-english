@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Practice - Cup of English</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to bottom right, #fdf4ff, #eef4ff);
+      color: #333;
+      line-height: 1.6;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    .background-decor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      background: url('inggris4/bg.png');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.12;
+    }
+    .floating-emoji {
+      position: absolute;
+      animation: float 6s ease-in-out infinite;
+      opacity: 0.4;
+      font-size: 2rem;
+    }
+    .floating-emoji:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; }
+    .floating-emoji:nth-child(2) { top: 20%; right: 10%; animation-delay: 1s; }
+    .floating-emoji:nth-child(3) { bottom: 15%; left: 10%; animation-delay: 2s; }
+    .floating-emoji:nth-child(4) { bottom: 10%; right: 15%; animation-delay: 3s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    header {
+  text-align: center;
+  padding: 0.75rem 1rem;
+  background: #f1e8ff;
+  border-radius: 12px;
+  margin: 1rem auto;
+  width: fit-content;
+  min-width: 300px;
+  max-width: 80%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+    header h1 {
+      font-size: 1.4rem;
+      font-family: 'Baloo 2', cursive;
+    }
+    .brand {
+      color: #b74c8e;
+    }
+    .tagline {
+      font-style: italic;
+      color: #666;
+      margin-top: 0.25rem;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 2rem auto;
+      background: #fff;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 0.8s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .start-screen, .question-screen, .result-screen {
+      display: none;
+    }
+    .start-screen.active, .question-screen.active, .result-screen.active {
+      display: block;
+    }
+    h1, h2 {
+      text-align: center;
+      color: #c796ff;
+      font-family: 'Baloo 2', cursive;
+    }
+    .question {
+      margin: 1rem 0;
+    }
+    .answers button {
+      display: block;
+      width: 100%;
+      padding: 0.75rem 1rem;
+      margin: 0.5rem 0;
+      background: #f8f8f8;
+      border: 1px solid #eee;
+      border-radius: 10px;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .answers button.correct {
+      background: #d1fadf;
+      border-color: #27c93f;
+    }
+    .answers button.incorrect {
+      background: #ffe2e2;
+      border-color: #e53935;
+    }
+    .answers button:hover {
+      background: #f1e8ff;
+    }
+    .explanation {
+      background: #e8f0fe;
+      padding: 1rem;
+      border-radius: 10px;
+      margin-top: 1rem;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    .score-box {
+      text-align: right;
+      font-weight: bold;
+      color: #ae76ee;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      margin-top: 2rem;
+      padding: 0.75rem;
+      background: #b37bf4;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .btn:hover {
+      background: #b07af3;
+    }
+    .cup-icon {
+      font-size: 2rem;
+      display: block;
+      text-align: center;
+      margin-bottom: 1rem;
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      padding: 2rem 1rem;
+      color: #999;
+    }
+    footer span {
+      color: #ff69b4;
+    }
+  </style>
+</head>
+<body>
+  <div class="background-decor"></div>
+  <div class="floating-emoji">📘</div>
+  <div class="floating-emoji">💡</div>
+  <div class="floating-emoji">🎯</div>
+  <div class="floating-emoji">✏️</div>
+
+  <header>
+    <h1><span class="brand">Let's boost your English!</span></h1>
+  </header>
+
+  <div class="container">
+    <!-- Start Screen -->
+    <div class="start-screen active" id="startScreen">
+      <div class="cup-icon">💌</div>
+      <h1>Are <span style="color: #6acdff;">you </span>ready??</h1>
+      <p style="text-align: center; margin: 1rem 0;"><strong>Let's gooo! 🚀</strong></p>
+      <button class="btn" onclick="startQuiz()">Start Practice</button>
+    </div>
+
+    <!-- Question Screen -->
+    <div class="question-screen" id="questionScreen">
+      <div class="score-box">Score: <span id="score">0</span></div>
+      <div id="questionBox"></div>
+    </div>
+
+    <!-- Result Screen -->
+    <div class="result-screen" id="resultScreen">
+      <h2>Quiz Completed!</h2>
+      <p style="text-align: center; font-size: 1.5rem;">
+        Your score: <span id="finalScore"></span>
+      </p>
+      <button class="btn" onclick="restartQuiz()">🔁 Try Again</button>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 Cup of English. All rights reserved.<br>
+    Made with <span>♡</span> for learners like you!
+  </footer>
+
+  <script>
+    const questions = [
+      {
+        question: "What is the correct form of the verb in the sentence: 'She _____ to school every day.'",
+        options: ["go", "goes", "going", "went"],
+        answer: 1,
+        explanation: "With third-person singular subjects (he, she, it), we add -s or -es to the base form of the verb in present simple tense."
+      },
+      {
+        question: "Which word is a noun?",
+        options: ["Quickly", "Apple", "Run", "Blue"],
+        answer: 1,
+        explanation: "'Apple' is a noun. It names a thing or object."
+      },
+      {
+        question: "What is the past tense of 'eat'?",
+        options: ["Eats", "Ate", "Eating", "Eaten"],
+        answer: 1,
+        explanation: "'Ate' is the past simple form of the verb 'eat'."
+      },
+      {
+        question: "Choose the correct article: 'I saw _____ elephant at the zoo.'",
+        options: ["a", "an", "the", "no article"],
+        answer: 1,
+        explanation: "We use 'an' before words starting with a vowel sound."
+      },
+      {
+        question: "Which one is an adjective?",
+        options: ["Jump", "Happy", "Cat", "Sing"],
+        answer: 1,
+        explanation: "'Happy' is an adjective that describes someone's mood."
+      },
+      {
+        question: "Complete the sentence: 'They _____ watching a movie when I arrived.'",
+        options: ["was", "were", "are", "is"],
+        answer: 1,
+        explanation: "'They' is plural, so we use 'were' in past continuous tense."
+      },
+      {
+        question: "Which sentence is correct?",
+        options: ["He go to school.", "He goes to school.", "He going to school.", "He gone to school."],
+        answer: 1,
+        explanation: "'He goes to school' is correct — present simple with -s for third person."
+      },
+      {
+        question: "What is the plural of 'child'?",
+        options: ["Childs", "Children", "Childes", "Childrens"],
+        answer: 1,
+        explanation: "The irregular plural of 'child' is 'children'."
+      },
+      {
+        question: "Which verb is in the future tense?",
+        options: ["Went", "Goes", "Will go", "Gone"],
+        answer: 2,
+        explanation: "'Will go' is in the future tense."
+      },
+      {
+        question: "Identify the preposition: 'The book is on the table.'",
+        options: ["book", "is", "on", "table"],
+        answer: 2,
+        explanation: "'On' shows position or place — it's a preposition."
+      }
+    ];
+
+    let current = 0;
+    let score = 0;
+
+    function startQuiz() {
+      document.getElementById('startScreen').classList.remove('active');
+      document.getElementById('questionScreen').classList.add('active');
+      loadQuestion();
+    }
+
+    function loadQuestion() {
+      const q = questions[current];
+      const questionBox = document.getElementById('questionBox');
+      questionBox.innerHTML = `
+        <p>Question ${current + 1} of ${questions.length}</p>
+        <div class="question"><strong>${q.question}</strong></div>
+        <div class="answers">
+          ${q.options.map((opt, i) => `<button onclick="selectAnswer(${i})">${String.fromCharCode(65 + i)}. ${opt}</button>`).join('')}
+        </div>
+      `;
+    }
+
+    function selectAnswer(selected) {
+      const q = questions[current];
+      const answerButtons = document.querySelectorAll('.answers button');
+      answerButtons.forEach((btn, i) => {
+        btn.disabled = true;
+        if (i === q.answer) btn.classList.add('correct');
+        else if (i === selected) btn.classList.add('incorrect');
+      });
+
+      if (selected === q.answer) score++;
+      document.getElementById('score').innerText = score;
+
+      const explain = document.createElement('div');
+      explain.className = 'explanation';
+      explain.innerHTML = `<strong>🛈 Explanation:</strong><br>${q.explanation}`;
+      document.querySelector('.question-screen').appendChild(explain);
+
+      const nextBtn = document.createElement('button');
+      nextBtn.className = 'btn';
+      nextBtn.innerText = current + 1 === questions.length ? 'Finish' : 'Next Question';
+      nextBtn.onclick = nextQuestion;
+      document.querySelector('.question-screen').appendChild(nextBtn);
+    }
+
+    function nextQuestion() {
+      current++;
+      document.querySelector('.question-screen').innerHTML = '<div class="score-box">Score: <span id="score">' + score + '</span></div><div id="questionBox"></div>';
+      if (current < questions.length) {
+        loadQuestion();
+      } else {
+        showResult();
+      }
+    }
+
+    function showResult() {
+      document.getElementById('questionScreen').classList.remove('active');
+      document.getElementById('resultScreen').classList.add('active');
+      document.getElementById('finalScore').innerText = `${score} / ${questions.length} (${Math.round(score / questions.length * 100)}%)`;
+    }
+
+    function restartQuiz() {
+      current = 0;
+      score = 0;
+      document.getElementById('resultScreen').classList.remove('active');
+      document.getElementById('startScreen').classList.add('active');
+      document.getElementById('score').innerText = '0';
+    }
+  </script>
+
+  <a href="index.html" class="floating-home-button">
+  <span class="button-icon">←</span>
+  <span class="button-text">Home</span>
+</a>
+
+<style>
+  .floating-home-button {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    display: inline-flex;
+    align-items: center;
+    background: linear-gradient(135deg, #7c3aed 0%, #6b21a8 100%);
+    color: white;
+    padding: 0.7rem 1.2rem; /* Reduced padding */
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem; /* Smaller font */
+    box-shadow: 0 4px 12px rgba(107, 33, 168, 0.4);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 1000;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(-1deg); } /* Reduced rotation */
+    50% { transform: translateY(-8px) rotate(1deg); } /* Smaller bounce */
+  }
+
+  .floating-home-button:hover {
+    transform: translateY(-3px) scale(1.05) rotate(0deg); /* More subtle hover */
+    box-shadow: 0 8px 16px rgba(107, 33, 168, 0.5);
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    animation: none;
+  }
+
+  .button-icon {
+    margin-right: 6px; /* Tighter spacing */
+    font-size: 1rem; /* Smaller icon */
+    transition: transform 0.3s ease;
+  }
+
+  /* Smaller pulse effect */
+  @keyframes pulse {
+    0% { transform: scale(1); opacity: 0; }
+    50% { opacity: 0.7; }
+    100% { transform: scale(1.15); opacity: 0; } /* Reduced scale */
+  }
+
+  /* Mobile version */
+  @media (max-width: 768px) {
+    .floating-home-button {
+      padding: 0.6rem;
+      bottom: 15px;
+      right: 15px;
+    }
+    .button-text {
+      display: none;
+    }
+    .button-icon {
+      font-size: 1.2rem;
+      margin-right: 0;
+    }
+  }
+</style>
+
+</body>
+</html>

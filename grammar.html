@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Comprehensive Grammar Guide</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #fcf6ff;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+    h1 {
+      text-align: center;
+      color: #6b28b7;
+      font-size: 2.5rem;
+      margin-top: 40px;
+      margin-bottom: 5px;
+    }
+    p.subtitle {
+      text-align: center;
+      color: #666;
+      margin-top: 0;
+      margin-bottom: 40px;
+      font-size: 1.1rem;
+    }
+
+    /* Container khusus untuk accordion cards saja */
+    .accordion-container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 30px 20px 50px;
+      background: white; /* background putih hanya di sini */
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+      flex-grow: 1;
+    }
+
+    .section-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: #5c2d91;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .section-title::before {
+      content: '📖';
+      font-size: 1.2rem;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .tab {
+      padding: 10px 16px;
+      background-color: white;
+      border-radius: 8px;
+      color: #5c5c5c;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid #eee;
+      transition: all 0.2s ease;
+    }
+    .tab:hover {
+      background-color: #f3e8ff;
+    }
+    .tab.active {
+      background-color: #e9d8ff;
+      color: #6b28b7;
+      font-weight: 600;
+    }
+
+    /* Accordion style */
+    .accordion {
+      border-radius: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #f0e6ff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      background-color: white;
+    }
+    .accordion-header {
+      padding: 16px;
+      font-size: 1rem;
+      cursor: pointer;
+      position: relative;
+      color: black; /* teks hitam sebelum dipencet */
+      background-color: white; /* putih sebelum dipencet */
+      border-radius: 8px 8px 0 0;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      font-weight: 600;
+      user-select: none;
+    }
+    .accordion-header::after {
+      content: '⌄';
+      position: absolute;
+      right: 20px;
+      transition: transform 0.3s ease, color 0.3s ease;
+      color: black;
+      font-weight: 600;
+    }
+    .accordion-header.active {
+      background-color: #d6c7fa; /* ungu super soft */
+      color: #4b3a7a; /* ungu gelap tapi lembut */
+    }
+    .accordion-header.active::after {
+      transform: rotate(180deg);
+      color: #4b3a7a;
+    }
+
+    .accordion-body {
+      padding: 0 16px 16px;
+      display: none;
+      color: #444; /* abu abu gelap */
+      border-top: 1px solid #eee;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+    .accordion-body p {
+      margin: 10px 0;
+      color: #444; /* abu abu gelap */
+    }
+
+    /* Card style for grammar details */
+    .grammar-card {
+      background-color: white;
+      padding: 15px 20px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+
+    /* Pink soft background for nouns body */
+    .nouns-body {
+        display: none;
+      background-color: #fcecff;
+      padding: 16px;
+      border-radius: 0 0 8px 8px;
+      color: #444; /* pengertian warna abu gelap */
+    }
+
+    .nouns-body em,
+    .grammar-card em {
+      display: block;
+      color: #6b28b7;
+      font-style: italic;
+      margin-bottom: 6px;
+    }
+
+    .grammar-card strong {
+      display: block;
+      margin-top: 4px;
+      color: #555;
+    }
+
+    .noun-description {
+      margin-bottom: 20px;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    /* Footer */
+    footer {
+      background-color: white;
+      text-align: center;
+      padding: 15px 10px;
+      font-size: 0.9rem;
+      color: #555;
+      border-top: 1px solid #eee;
+      margin-top: auto;
+      user-select: none;
+    }
+
+    .formula-box {
+    background-color: #fe8fc51b;
+    border-left: 4px solid #fca7d1;
+    padding: 12px 15px;
+    margin: 15px 0;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .formula-title {
+    margin-top: 0;
+    color: #343a40;
+    font-size: 1.1em;
+  }
+
+  .formula-list {
+    margin-bottom: 0;
+    padding-left: 20px;
+  }
+
+  .formula-list li {
+    margin-bottom: 5px;
+  }
+
+  /* Existing Style Enhancements */
+  .grammar-card {
+    background-color: white;
+    border: 1px solid #dee2e6;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+  }
+
+  .example-label {
+    display: block;
+    color: #6c757d;
+    font-size: 0.9em;
+    margin-top: 5px;
+  }
+
+  </style>
+</head>
+<body>
+
+  <h1>Comprehensive Grammar Guide</h1>
+  <p class="subtitle">Master English grammar with detailed explanations and examples</p>
+
+  <div class="accordion-container">
+
+    <div class="section-title">Grammar Categories</div>
+
+    <div class="tabs">
+      <div class="tab active">Basic Rules</div>
+      <div class="tab">Tenses</div>
+      <div class="tab">Conditionals</div>
+      <div class="tab">Participles</div>
+      <div class="tab">Agreements</div>
+      <div class="tab">Passive & Active</div>
+    </div>
+
+    <!-- Nouns -->
+    <div class="accordion">
+      <div class="accordion-header">Nouns</div>
+      <div class="nouns-body">
+        <p class="noun-description">Nouns are words that name people, places, things, or ideas.</p>
+        <div class="grammar-card">
+          <em>The teacher gave us homework.</em>
+          <strong>Common nouns:</strong> teacher, homework (general names)
+        </div>
+        <div class="grammar-card">
+          <em>London is the capital of England.</em>
+          <strong>Proper nouns:</strong> London, England (specific names, always capitalized)
+        </div>
+        <div class="grammar-card">
+          <em>Love and happiness are important in life.</em>
+          <strong>Abstract nouns:</strong> love, happiness (ideas or concepts)
+        </div>
+        <div class="grammar-card">
+          <em>I need three apples.</em>
+          <strong>Count nouns:</strong>  can be counted (one apple, two apples)
+        </div>
+        <div class="grammar-card">
+          <em>She drinks water every day.</em>
+          <strong>Non-count nouns:</strong> cannot be counted (not 'one water, two waters')
+        </div>
+        <div class="grammar-card">
+          <em>The dog's toy is under the table.</em>
+          <strong>Possessive form:</strong> add 's to show ownership
+        </div>
+      </div>
+    </div>
+
+ <!-- Verbs -->
+<div class="accordion">
+  <div class="accordion-header">Verbs</div>
+  <div class="nouns-body">
+    <p class="noun-description">Verbs are words that show action or state of being.</p>
+    <div class="grammar-card">
+      <em>She runs every morning.</em>
+      <strong>Action verb:</strong>shows physical action (runs)
+    </div>
+    <div class="grammar-card">
+      <em>He seems happy today.</em>
+      <strong>Linking verb:</strong> connects subject to description (seems)
+    </div>
+    <div class="grammar-card">
+      <em>I talk, I talked, I have talked.</em>
+      <strong>Regular verb:</strong> forms past tense by adding -ed
+    </div>
+    <div class="grammar-card">
+      <em>I go, I went, I have gone.</em>
+      <strong>Irregular verb:</strong> changes form in past tense
+    </div>
+    <div class="grammar-card">
+      <em>She is singing in the choir.</em>
+      <strong>Auxiliary verb + main verb:</strong>is (auxiliary) + singing (main)
+    </div>
+    <div class="grammar-card">
+      <em>They do not like seafood</em>
+      <strong>Auxiliary verb in negation:</strong>do not + like
+    </div>
+  </div>
+</div>
+
+<!-- Subject-Verb Agreement -->
+<div class="accordion">
+  <div class="accordion-header">Subject + Verb Agreement</div>
+  <div class="nouns-body">
+    <p class="noun-description">In English, the subject and verb must agree in number (singular or plural).</p>
+    <div class="grammar-card">
+      <em>She walks to school every day.</em>
+      Singular subject = singular verb
+    </div>
+    <div class="grammar-card">
+      <em>They walk to school every day.</em>
+      Plural subject (they) with plural verb (walk)
+    </div>
+  </div>
+</div>
+
+<!-- Articles -->
+<div class="accordion">
+  <div class="accordion-header">Articles (a, an, the)</div>
+  <div class="nouns-body">
+    <p class="noun-description">Articles are used before nouns to indicate whether they are specific or general.</p>
+    <div class="grammar-card">
+      <em>I saw a dog in the park.</em>
+      a dog (any dog, not specific)
+    </div>
+    <div class="grammar-card">
+      <em>The dog was barking loudly.</em>
+      the dog (specific dog)
+    </div>
+    <div class="grammar-card">
+      <em>She plays an instrument.</em>
+      an before words starting with vowel sounds
+    </div>
+  </div>
+</div>
+
+<!-- Plurals -->
+<div class="accordion">
+  <div class="accordion-header">Plurals</div>
+  <div class="nouns-body">
+    <p class="noun-description">Most nouns form their plurals by adding -s or -es to the singular form.</p>
+    <div class="grammar-card">
+      <em>One book, two books</em>
+      Add -s to most nouns
+    </div>
+    <div class="grammar-card">
+      <em>One box, two boxes</em>
+      Add -es to nouns ending in -s, -ss, -sh, -ch, -x, -z
+    </div>
+    <div class="grammar-card">
+      <em>One child, two children</em>
+      Some nouns have irregular plurals
+    </div>
+  </div>
+</div>
+
+<!-- Pronouns -->
+<div class="accordion">
+  <div class="accordion-header">Pronouns</div>
+  <div class="nouns-body">
+    <p class="noun-description">Pronouns replace nouns to avoid repetition. They include personal, possessive, and demonstrative pronouns.</p>
+    <div class="grammar-card">
+      <em>I gave the book to him.</em>
+      <strong>Personal pronouns:</strong>I, you, he, she, it, we, they, me, him, her, us, them
+    </div>
+    <div class="grammar-card">
+      <em>This is my car. That is yours.</em>
+      <strong>Possessive pronoun:</strong>mine, yours, his, hers, its, ours, theirs
+    </div>
+    <div class="grammar-card">
+      <em>This apple is sweet. Those apples are sour.</em>
+      <strong>Demonstrative pronouns:</strong>this, that, these, those
+    </div>
+  </div>
+</div>
+
+<!-- Adjective Order -->
+<div class="accordion">
+  <div class="accordion-header">Adjective Order</div>
+  <div class="nouns-body">
+    <p class="noun-description">When multiple adjectives are used to describe a noun, they generally follow a specific order.</p>
+    <div class="grammar-card">
+      <em>A beautiful small round black wooden table</em>
+      Opinion → Size → Shape → Color → Material → Purpose
+    </div>
+    <div class="grammar-card">
+      <em>An old Italian painting</em>
+      Age → Origin → Purpose/Material
+    </div>
+  </div>
+</div>
+
+<!-- Prepositions -->
+<div class="accordion">
+  <div class="accordion-header">Prepositions</div>
+  <div class="nouns-body">
+    <p class="noun-description">Prepositions show relationships between nouns/pronouns and other words in a sentence, typically indicating position, direction, or time.</p>
+    <div class="grammar-card">
+      <em>The book is on the table.</em>
+      <strong>Position:</strong> on, in, under, above, below, between
+    </div>
+    <div class="grammar-card">
+      <em>She walked through the door.</em>
+      <strong>Direction:</strong>to, from, across, through
+    </div>
+    <div class="grammar-card">
+      <em>We'll meet at 6 o'clock.</em>
+      <strong>Time:</strong>at, in, on, during, before, after
+    </div>
+  </div>
+</div>
+
+<!-- Conjunctions -->
+<div class="accordion">
+  <div class="accordion-header">Conjunctions</div>
+  <div class="nouns-body">
+    <p class="noun-description">Conjunctions connect words, phrases, or clauses.</p>
+    <div class="grammar-card">
+      <em>I like tea and coffee.</em>
+      <strong>Coordinating conjunctions:</strong> for, and, nor, but, or, yet, so
+    </div>
+    <div class="grammar-card">
+      <em>I'll go to the park if it doesn't rain.</em>
+      <strong>Subordinating conjunctions:</strong> because, since, as, although, though, if, when, etc.
+    </div>
+  </div>
+</div>
+
+<!-- Question Formation -->
+<div class="accordion">
+  <div class="accordion-header">Question Formation</div>
+  <div class="nouns-body">
+    <p class="noun-description">Questions in English typically start with auxiliary verbs or question words (wh-words).</p>
+    <div class="grammar-card">
+      <em>Do you speak English?</em>
+      Yes/No questions start with auxiliary verbs: do, does, did, is, are, etc.
+    </div>
+    <div class="grammar-card">
+      <em>Where do you live?</em>
+      Wh-questions start with question words: what, where, when, who, why, how
+    </div>
+  </div>
+</div>
+
+<!-- Negation -->
+<div class="accordion">
+  <div class="accordion-header">Negation</div>
+  <div class="nouns-body">
+    <p class="noun-description">Negative sentences in English are formed by adding 'not' after auxiliary verbs or by using negative words.</p>
+    <div class="grammar-card">
+      <em>She does not like coffee.</em>
+      <strong>Using 'not' with auxiliary verbs:</strong> do not (don't), does not (doesn't), etc.
+    </div>
+    <div class="grammar-card">
+      <em>I have never been to Paris.</em>
+      <strong>Using negative words:</strong> never, no, nobody, nothing, nowhere
+    </div>
+  </div>
+</div>
+
+<!-- Conditionals -->
+<div class="accordion">
+  <div class="accordion-header">Zero Conditional</div>
+  <div class="nouns-body">
+    <p class="noun-description">Used for general truths or scientific facts - If + present simple, present simple.</p>
+    <div class="grammar-card">
+      <em>If you heat water to 100°C, it boils</em>
+      Scientific fact
+    </div>
+    <div class="grammar-card">
+      <em>If you don't water plants, they die.</em>
+      General truth
+    </div>
+  </div>
+</div>
+<div class="accordion">
+  <div class="accordion-header">First Conditional</div>
+  <div class="nouns-body">
+    <p class="noun-description">Used for possible future situations - If + present simple, will + infinitive.</p>
+    <div class="grammar-card">
+      <em>If it rains tomorrow, we will stay at home.</em>
+      Possible future situation
+    </div>
+    <div class="grammar-card">
+      <em>If you study hard, you will pass the exam.</em>
+      Likely result in the future
+    </div>
+  </div>
+</div>
+<div class="accordion">
+  <div class="accordion-header">Second Conditional</div>
+  <div class="nouns-body">
+    <p class="noun-description">Used for hypothetical or unlikely situations - If + past simple, would + infinitive.</p>
+    <div class="grammar-card">
+      <em>If I won the lottery, I would travel the world.</em>
+      Unlikely/hypothetical situation
+    </div>
+    <div class="grammar-card">
+      <em>If she had more time, she would learn Japanese.</em>
+      Hypothetical present situation
+    </div>
+  </div>
+</div>
+<div class="accordion">
+  <div class="accordion-header">Third Conditional</div>
+  <div class="nouns-body">
+    <p class="noun-description">Used for impossible past situations - If + past perfect, would have + past participle.</p>
+    <div class="grammar-card">
+      <em>If I had studied harder, I would have passed the exam.</em>
+      Past situation that didn't happen
+    </div>
+    <div class="grammar-card">
+      <em>If they had left earlier, they wouldn't have missed the train.</em>
+      Impossible past situation
+    </div>
+  </div>
+</div>
+
+<!-- Participles -->
+<div class="accordion">
+  <div class="accordion-header">Participles</div>
+  <div class="nouns-body">
+    <p class="noun-description">Participles are verb forms used as adjectives or to construct verb tenses. They include present participles (-ing) and past participles (-ed/irregular).</p>
+    
+    <!-- Present Participles -->
+    <div class="grammar-card">
+      <em>She is walking to school.</em>
+      <strong>Present participle (-ing):</strong> Used in continuous tenses ("is walking") or as adjectives <em>(The running water was cold.)</em>
+    </div>
+    
+    <!-- Past Participles -->
+    <div class="grammar-card">
+      <em>I have finished my homework.</em>
+      <strong>Past participle (-ed/irregular):</strong> Used in perfect tenses ("have finished"), passive voice <em>(The book was written)</em> or as adjectives <em>(The broken vase)</em>
+    </div>
+    
+    <!-- Participial Phrases -->
+    <div class="grammar-card">
+      <em>Walking to school, I saw my friend.</em>
+      <strong>Participial phrase:</strong> A group of words with a participle that functions as an adjective (modifies "I").<br>
+      <em>Exhausted from the journey, we fell asleep.</em> (Past participle phrase modifies "we")
+    </div>
+  </div>
+</div>
+    
+
+
+<!-- Agreements -->
+<div class="accordion">
+  <div class="accordion-header">Agreements</div>
+  <div class="nouns-body">
+    <p class="noun-description">The subject and verb must agree in number (singular/plural). Here are key rules with examples:</p>
+    
+    <!-- Basic Agreement -->
+    <div class="grammar-card">
+      <em>The dog barks. / The dogs bark.</em>
+      <strong>Basic Rule:</strong> Singular subjects take singular verbs; plural subjects take plural verbs.
+    </div>
+    
+    <!-- Compound Subjects -->
+    <div class="grammar-card">
+      <em>Mary and John are coming. / Either the teacher or the students are responsible.</em>
+      <strong>Compound Subjects:</strong> 
+      <ul>
+        <li>Use plural verbs for subjects joined by <strong>and</strong></li>
+        <li>With <strong>or</strong> the verb agrees with the nearest subject.</li>
+      </ul>
+    </div>
+    
+    <!-- Collective Nouns -->
+    <div class="grammar-card">
+      <em>The team is winning. / The jury were unable to agree.</em>
+      <strong>Collective Nouns:</strong> 
+      <ul>
+        <li>Singular verbs if the group acts as one unit <em>(is)</em></li>
+        <li>Plural verbs if members act individually <em>(were)</em> common in British English</li>
+      </ul>
+    </div>
+    
+    <!-- Indefinite Pronouns -->
+    <div class="grammar-card">
+      <em>Everyone has arrived. / Few were prepared.</em>
+      <strong>Indefinite Pronouns:</strong> 
+      <ul>
+        <li>Singular verbs for <strong>everyone, nobody, each</strong> <em>(has)</em></li>
+        <li>Plural verbs for <strong>few, many, several</strong> <em>(were)</em></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Passive & Active -->
+<div class="accordion">
+  <div class="accordion-header">Passive & Active</div>
+  <div class="nouns-body">
+    <p class="noun-description">Voice indicates whether the subject performs or receives the action of the verb. Here are the key differences and uses:</p>
+    
+    <!-- Active Voice -->
+    <div class="grammar-card">
+      <em>The chef cooked the meal. / Students are writing essays.</em>
+      <strong>Active Voice:</strong> 
+      <ul>
+        <li>The subject <strong>performs</strong> the action.</li>
+        <li>Structure: <strong>Subject + Verb + Object</strong></li>
+        <li>More direct and concise.</li>
+      </ul>
+    </div>
+    
+    <!-- Passive Voice -->
+    <div class="grammar-card">
+      <em>The meal was cooked by the chef. / Essays are being written by the students.</em>
+      <strong>Passive Voice:</strong> 
+      <ul>
+        <li>The subject <strong>receives</strong> the action.</li>
+        <li>Structure: <strong>Subject + Be + Past Participle (+ by-agent)</strong></li>
+        <li>Used when the doer is unknown, unimportant, or to emphasize the receiver</li>
+      </ul>
+    </div>
+    
+    <!-- When to Use Passive -->
+    <div class="grammar-card">
+      <em>My car was stolen. / The patient will be examined.</em>
+      <strong>When to Use Passive Voice:</strong> 
+      <ul>
+        <li><strong>Unknown doer:</strong> <em>"My car was stolen."</em> (who stole it is unknown)</li>
+        <li><strong>Unimportant doer:</strong> <em>"This building was constructed in 1950."</em> (the builder isn't relevant)</li>
+        <li><strong>Emphasize the receiver:</strong> <em>"The patient will be examined immediately."</em> (focus on the patient)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Capitalization -->
+<div class="accordion">
+  <div class="accordion-header">Capitalization</div>
+  <div class="nouns-body">
+    <p class="noun-description">English has specific rules for when to use capital letters.</p>
+    <div class="grammar-card">
+      <em>My birthday is in January.</em>
+      <strong>Capitalize:</strong> First word of a sentence, days, months, holidays
+    </div>
+    <div class="grammar-card">
+      <em>I visited London last year.</em>
+      <strong>Capitalize:</strong> Names of people, places, nationalities, languages
+    </div>
+     <div class="grammar-card">
+      <em>I really like All Of Us Are Dead drama.</em>
+      <strong>Capitalize:</strong> Titles of books, movies, etc. (main words)
+    </div>
+  </div>
+</div>
+
+<!-- Tenses Content -->
+<div class="tab-content" id="tenses-content" style="display: none;">
+     <div class="accordion">
+  <div class="accordion-header">Present Simple Tense</div>
+  <div class="nouns-body">
+    <p class="noun-description">Used for habits, facts, general truths, and scheduled events.</p>
+    
+    <!-- Formula Box (New) -->
+    <div class="formula-box">
+      <h3 class="formula-title">Formula:</h3>
+      <ul class="formula-list">
+        <li>Affirmative: Subject + base verb (+ s/es for 3rd person singular)</li>
+        <li>Negative: Subject + do/does + not + base verb</li>
+        <li>Question: Do/Does + subject + base verb?</li>
+      </ul>
+    </div>
+  
+    <!-- Existing Examples -->
+    <div class="grammar-card">
+      <em>I work in a bank.</em>
+      <span class="example-label">Regular fact/habit</span>
+    </div>
+    <div class="grammar-card">
+      <em>The sun rises in the east.</em>
+      <span class="example-label">General truth</span>
+    </div>
+    <div class="grammar-card">
+      <em>He doesn’t like coffee.</em>
+      <span class="example-label">Negative form with does + not</span>
+    </div>
+    <div class="grammar-card">
+      <em>Do you speak English?</em>
+      <span class="example-label">Question form with do/does</span>
+    </div>
+  </div>
+</div>
+<!-- 2222 -->
+  <div class="accordion">
+  <div class="accordion-header">Present Continuous Tense</div>
+  <div class="nouns-body">
+    <p class="noun-description">Used for actions happening now, temporary situations, and future arrangements.</p>
+    
+    <!-- Formula Box (New) -->
+    <div class="formula-box">
+      <h3 class="formula-title">Formula:</h3>
+      <ul class="formula-list">
+        <li>Affirmative: Subject + am/is/are + verb-ing</li>
+        <li>Negative: Subject + am/is/are + not + verb-ing</li>
+        <li>Question: Am/Is/Are + subject + verb-ing?</li>
+      </ul>
+    </div>
+
+    <!-- Existing Examples -->
+    <div class="grammar-card">
+      <em>She is studying for her exam.</em>
+      <span class="example-label">Action happening now</span>
+    </div>
+    <div class="grammar-card">
+      <em>They are living in Paris for a year.</em>
+      <span class="example-label">Temporary situation</span>
+    </div>
+    <div class="grammar-card">
+      <em>I'm meeting John at 6 PM.</em>
+      <span class="example-label">Future arrangement</span>
+    </div>
+  </div>
+  </div>
+
+  <!-- 333 -->
+    <div class="accordion">
+  <div class="accordion-header">Present Perfect Tense</div>
+  <div class="nouns-body">
+    <p class="noun-description">Used for actions that started in the past and continue to the present, recent completed actions, or past experiences with present relevance.</p>
+    
+    <!-- Formula Box (New) -->
+    <div class="formula-box">
+      <h3 class="formula-title">Formula:</h3>
+      <ul class="formula-list">
+        <li>Affirmative: Subject + have/has + past participle</li>
+        <li>Negative: Subject + have/has + not + past participle</li>
+        <li>Question: Have/Has + subject + past participle?</li>
+      </ul>
+    </div>
+
+    <!-- Existing Examples -->
+    <div class="grammar-card">
+      <em>I have lived in London for five years.</em>
+      <span class="example-label">Action started in past and continues to present</span>
+    </div>
+    <div class="grammar-card">
+      <em>She has already finished her homework.</em>
+      <span class="example-label">Completed action with relevance to present</span>
+    </div>
+    <div class="grammar-card">
+      <em>Have you ever visited Paris?</em>
+      <span class="example-label">Past experience with relevance to present</span>
+    </div>
+  </div>
+</div>
+
+  <!-- 444 -->
+    <div class="accordion">
+  <div class="accordion-header">Present Perfect Continuous Tense</div>
+  <div class="nouns-body">
+    <p class="noun-description">Used for actions that started in the past, continue to the present, and may continue into the future, often emphasizing duration.</p>
+    
+    <!-- Formula Box (New) -->
+    <div class="formula-box">
+      <h3 class="formula-title">Formula:</h3>
+      <ul class="formula-list">
+        <li>Affirmative: Subject + have/has + been + verb-ing</li>
+        <li>Negative: Subject + have/has + not + been + verb-ing</li>
+        <li>Question: Have/Has + subject + been + verb-ing?</li>
+      </ul>
+    </div>
+
+    <!-- Existing Examples -->
+    <div class="grammar-card">
+      <em>I have been working here for ten years.</em>
+      <span class="example-label">Continuous action from past to present</span>
+    </div>
+    <div class="grammar-card">
+      <em>She has been studying all day.</em>
+      <span class="example-label">Ongoing action with emphasis on duration</span>
+    </div>
+    <div class="grammar-card">
+      <em>Have you been waiting long?</em>
+      <span class="example-label">Question about ongoing action</span>
+    </div>
+  </div>
+    </div>
+
+  <!-- 555 -->
+    <div class="accordion">
+  <div class="accordion-header">Past Simple Tense</div>
+  <div class="nouns-body">
+    <p class="noun-description">Used for completed actions in the past, especially with a specific time reference.</p>
+    
+    <!-- Formula Box (New) -->
+    <div class="formula-box">
+      <h3 class="formula-title">Formula:</h3>
+      <ul class="formula-list">
+        <li>Affirmative: Subject + verb in past tense (regular: +ed, irregular: 2nd form)</li>
+        <li>Negative: Subject + did + not + base verb</li>
+        <li>Question: Did + subject + base verb?</li>
+      </ul>
+    </div>
+
+    <!-- Existing Examples -->
+    <div class="grammar-card">
+      <em>I visited my grandmother last weekend.</em>
+      <span class="example-label">Completed past action with time reference</span>
+    </div>
+    <div class="grammar-card">
+      <em>She didn't go to the party.</em>
+      <span class="example-label">Negative form with did + not</span>
+    </div>
+    <div class="grammar-card">
+      <em>Did you see that movie?</em>
+      <span class="example-label">Question about past event</span>
+    </div>
+  </div>
+    </div>
+  <!-- 666 -->
+    <div class="accordion">
+  <div class="accordion-header">Past Continuous Tense</div>
+  <div class="nouns-body">
+    <p class="noun-description">Used for actions in progress at a specific time in the past, often interrupted by another action.</p>
+    
+    <!-- Formula Box (New) -->
+    <div class="formula-box">
+      <h3 class="formula-title">Formula:</h3>
+      <ul class="formula-list">
+        <li>Affirmative: Subject + was/were + verb-ing</li>
+        <li>Negative: Subject + was/were + not + verb-ing</li>
+        <li>Question: Was/Were + subject + verb-ing?</li>
+      </ul>
+    </div>
+
+    <!-- Existing Examples -->
+    <div class="grammar-card">
+      <em>I was watching TV when the phone rang.</em>
+      <span class="example-label">Action in progress interrupted by another action</span>
+    </div>
+    <div class="grammar-card">
+      <em>They were playing tennis at 5 PM yesterday.</em>
+      <span class="example-label">Action in progress at a specific past time</span>
+    </div>
+    <div class="grammar-card">
+      <em>Was she sleeping when you called?</em>
+      <span class="example-label">Question about action in progress</span>
+    </div>
+  </div>
+    </div>
+  <!-- 777 -->
+    <div class="accordion">
+  <div class="accordion-header">Past Perfect Tense</div>
+  <div class="nouns-body">
+    <p class="noun-description">Used for actions that were completed before another action in the past, establishing a sequence of past events.</p>
+    
+    <!-- Formula Box (New) -->
+    <div class="formula-box">
+      <h3 class="formula-title">Formula:</h3>
+      <ul class="formula-list">
+        <li>Affirmative: Subject + had + past participle</li>
+        <li>Negative: Subject + had + not + past participle</li>
+        <li>Question: Had + subject + past participle?</li>
+      </ul>
+    </div>
+
+    <!-- Existing Examples -->
+    <div class="grammar-card">
+      <em>I had finished my homework before my friends arrived.</em>
+      <span class="example-label">The homework was completed first, then friends arrived</span>
+    </div>
+    <div class="grammar-card">
+      <em>She had never seen snow before she moved to Canada.</em>
+      <span class="example-label">One past action (seeing snow) happened before another past action (moving to Canada)</span>
+    </div>
+    <div class="grammar-card">
+      <em>Had you eaten lunch before the meeting?</em>
+      <span class="example-label">Question about sequence of past events</span>
+    </div>
+  </div>
+    </div>
+
+  <!-- 888 -->
+    <div class="accordion">
+  <div class="accordion-header">Past Perfect Continuous Tense</div>
+  <div class="nouns-body">
+    <p class="noun-description">Used for actions that were in progress for some time before another action in the past, emphasizing duration.</p>
+    
+    <!-- Formula Box (New) -->
+    <div class="formula-box">
+      <h3 class="formula-title">Formula:</h3>
+      <ul class="formula-list">
+        <li>Affirmative: Subject + had + been + verb-ing</li>
+        <li>Negative: Subject + had + not + been + verb-ing</li>
+        <li>Question: Had + subject + been + verb-ing?</li>
+      </ul>
+    </div>
+
+    <!-- Existing Examples -->
+    <div class="grammar-card">
+      <em>I had been working for three hours when she called.</em>
+      <span class="example-label">Continuous action before another past action</span>
+    </div>
+    <div class="grammar-card">
+      <em>They had been living in London for ten years before they moved to Paris.</em>
+      <span class="example-label">Extended duration before a change</span>
+    </div>
+    <div class="grammar-card">
+      <em>Had you been waiting long before the bus arrived?</em>
+      <span class="example-label">Question about duration before past event</span>
+    </div>
+  </div>
+    </div>
+
+  <!-- Simple Future -->
+    <div class="accordion">
+<div class="accordion-header">Simple Future Tense</div>
+<div class="nouns-body">
+  <p class="noun-description">Used for actions that will happen in the future, predictions, or spontaneous decisions.</p>
+  
+  <div class="formula-box">
+    <h3 class="formula-title">Formula:</h3>
+    <ul class="formula-list">
+      <li>Affirmative: Subject + will + base verb</li>
+      <li>Negative: Subject + will + not + base verb</li>
+      <li>Question: Will + subject + base verb?</li>
+    </ul>
+  </div>
+
+  <div class="grammar-card">
+    <em>She will attend the meeting tomorrow.</em>
+    <span class="example-label">Planned future action</span>
+  </div>
+  <div class="grammar-card">
+    <em>It will rain this afternoon.</em>
+    <span class="example-label">Prediction</span>
+  </div>
+  <div class="grammar-card">
+    <em>I'll answer the phone.</em>
+    <span class="example-label">Spontaneous decision</span>
+  </div>
+</div>
+</div>
+
+<!-- Future Continuous -->
+  <div class="accordion">
+<div class="accordion-header">Future Continuous Tense</div>
+<div class="nouns-body">
+  <p class="noun-description">Used for actions that will be in progress at a specific time in the future.</p>
+  
+  <div class="formula-box">
+    <h3 class="formula-title">Formula:</h3>
+    <ul class="formula-list">
+      <li>Affirmative: Subject + will + be + verb-ing</li>
+      <li>Negative: Subject + will + not + be + verb-ing</li>
+      <li>Question: Will + subject + be + verb-ing?</li>
+    </ul>
+  </div>
+
+  <div class="grammar-card">
+    <em>At 8 PM tonight, I will be watching a movie.</em>
+    <span class="example-label">Action in progress at future time</span>
+  </div>
+  <div class="grammar-card">
+    <em>They won't be working during the holidays.</em>
+    <span class="example-label">Negative form</span>
+  </div>
+  <div class="grammar-card">
+    <em>Will you be traveling this weekend?</em>
+    <span class="example-label">Question about future plans</span>
+  </div>
+</div>
+  </div>
+
+<!-- Future Perfect -->
+  <div class="accordion">
+<div class="accordion-header">Future Perfect Tense</div>
+<div class="nouns-body">
+  <p class="noun-description">Used for actions that will be completed before a specific time in the future.</p>
+  
+  <div class="formula-box">
+    <h3 class="formula-title">Formula:</h3>
+    <ul class="formula-list">
+      <li>Affirmative: Subject + will + have + past participle</li>
+      <li>Negative: Subject + will + not + have + past participle</li>
+      <li>Question: Will + subject + have + past participle?</li>
+    </ul>
+  </div>
+
+  <div class="grammar-card">
+    <em>By next year, I will have finished my degree.</em>
+    <span class="example-label">Completed action before future time</span>
+  </div>
+  <div class="grammar-card">
+    <em>She won't have arrived by 6 PM.</em>
+    <span class="example-label">Negative form</span>
+  </div>
+  <div class="grammar-card">
+    <em>Will you have completed the report by Friday?</em>
+    <span class="example-label">Question about completion</span>
+  </div>
+</div>
+</div>
+
+<!-- Future Perfect Continuous -->
+  <div class="accordion">
+<div class="accordion-header">Future Perfect Continuous Tense</div>
+<div class="nouns-body">
+  <p class="noun-description">Used to emphasize the duration of an action up to a specific time in the future.</p>
+  
+  <div class="formula-box">
+    <h3 class="formula-title">Formula:</h3>
+    <ul class="formula-list">
+      <li>Affirmative: Subject + will + have + been + verb-ing</li>
+      <li>Negative: Subject + will + not + have + been + verb-ing</li>
+      <li>Question: Will + subject + have + been + verb-ing?</li>
+    </ul>
+  </div>
+
+  <div class="grammar-card">
+    <em>By 2025, I will have been working here for 10 years.</em>
+    <span class="example-label">Duration up to future point</span>
+  </div>
+  <div class="grammar-card">
+    <em>They won't have been waiting long when we arrive.</em>
+    <span class="example-label">Negative form</span>
+  </div>
+  <div class="grammar-card">
+    <em>Will you have been studying long before the exam?</em>
+    <span class="example-label">Question about duration</span>
+  </div>
+</div>
+  </div>
+
+<!-- Simple Past Future -->
+  <div class="accordion">
+<div class="accordion-header">Simple Past Future Tense</div>
+<div class="nouns-body">
+  <p class="noun-description">Used for future actions from a past perspective, often in reported speech.</p>
+  
+  <div class="formula-box">
+    <h3 class="formula-title">Formula:</h3>
+    <ul class="formula-list">
+      <li>Affirmative: Subject + would + base verb</li>
+      <li>Negative: Subject + would + not + base verb</li>
+      <li>Question: Would + subject + base verb?</li>
+    </ul>
+  </div>
+
+  <div class="grammar-card">
+    <em>He said he would call me.</em>
+    <span class="example-label">Reported speech</span>
+  </div>
+  <div class="grammar-card">
+    <em>I knew she wouldn't come.</em>
+    <span class="example-label">Negative form</span>
+  </div>
+  <div class="grammar-card">
+    <em>Would you help me if I asked?</em>
+    <span class="example-label">Hypothetical question</span>
+  </div>
+</div>
+</div>
+
+<!-- Past Future Continuous -->
+  <div class="accordion">
+<div class="accordion-header">Past Future Continuous Tense</div>
+<div class="nouns-body">
+  <p class="noun-description">Used for actions that would be in progress at a specific past-future time.</p>
+  
+  <div class="formula-box">
+    <h3 class="formula-title">Formula:</h3>
+    <ul class="formula-list">
+      <li>Affirmative: Subject + would + be + verb-ing</li>
+      <li>Negative: Subject + would + not + be + verb-ing</li>
+      <li>Question: Would + subject + be + verb-ing?</li>
+    </ul>
+  </div>
+
+  <div class="grammar-card">
+    <em>She said she would be waiting at the cafe.</em>
+    <span class="example-label">Ongoing action from past perspective</span>
+  </div>
+  <div class="grammar-card">
+    <em>I knew they wouldn't be working late.</em>
+    <span class="example-label">Negative form</span>
+  </div>
+  <div class="grammar-card">
+    <em>Would you be traveling that weekend?</em>
+    <span class="example-label">Question about past-future plans</span>
+  </div>
+</div>
+  </div>
+
+<!-- Past Future Perfect -->
+  <div class="accordion">
+<div class="accordion-header">Past Future Perfect Tense</div>
+<div class="nouns-body">
+  <p class="noun-description">Used for actions that would have been completed before a past-future time.</p>
+  
+  <div class="formula-box">
+    <h3 class="formula-title">Formula:</h3>
+    <ul class="formula-list">
+      <li>Affirmative: Subject + would + have + past participle</li>
+      <li>Negative: Subject + would + not + have + past participle</li>
+      <li>Question: Would + subject + have + past participle?</li>
+    </ul>
+  </div>
+
+  <div class="grammar-card">
+    <em>By 5 PM, he would have finished the project.</em>
+    <span class="example-label">Completion before past-future time</span>
+  </div>
+  <div class="grammar-card">
+    <em>I knew she wouldn't have arrived yet.</em>
+    <span class="example-label">Negative form</span>
+  </div>
+  <div class="grammar-card">
+    <em>Would you have completed the course by June?</em>
+    <span class="example-label">Question about past-future completion</span>
+  </div>
+</div>
+  </div>
+
+<!-- Past Future Perfect Continuous -->
+<div class="accordion-header">Past Future Perfect Continuous Tense</div>
+<div class="nouns-body">
+  <p class="noun-description">Used to emphasize duration of an action up to a past-future time.</p>
+  
+  <div class="formula-box">
+    <h3 class="formula-title">Formula:</h3>
+    <ul class="formula-list">
+      <li>Affirmative: Subject + would + have + been + verb-ing</li>
+      <li>Negative: Subject + would + not + have + been + verb-ing</li>
+      <li>Question: Would + subject + have + been + verb-ing?</li>
+    </ul>
+  </div>
+
+  <div class="grammar-card">
+    <em>By December, I would have been living here for 5 years.</em>
+    <span class="example-label">Duration up to past-future point</span>
+  </div>
+  <div class="grammar-card">
+    <em>They wouldn't have been waiting long when we arrived.</em>
+    <span class="example-label">Negative form</span>
+  </div>
+  <div class="grammar-card">
+    <em>Would you have been working there long before retiring?</em>
+    <span class="example-label">Question about past-future duration</span>
+  </div>
+</div>
+
+  </div>
+
+  <a href="index.html" class="floating-home-button">
+  <span class="button-icon">←</span>
+  <span class="button-text">Home</span>
+</a>
+
+<style>
+  .floating-home-button {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    display: inline-flex;
+    align-items: center;
+    background: linear-gradient(135deg, #7c3aed 0%, #6b21a8 100%);
+    color: white;
+    padding: 0.7rem 1.2rem; /* Reduced padding */
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem; /* Smaller font */
+    box-shadow: 0 4px 12px rgba(107, 33, 168, 0.4);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 1000;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(-1deg); } /* Reduced rotation */
+    50% { transform: translateY(-8px) rotate(1deg); } /* Smaller bounce */
+  }
+
+  .floating-home-button:hover {
+    transform: translateY(-3px) scale(1.05) rotate(0deg); /* More subtle hover */
+    box-shadow: 0 8px 16px rgba(107, 33, 168, 0.5);
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    animation: none;
+  }
+
+  .button-icon {
+    margin-right: 6px; /* Tighter spacing */
+    font-size: 1rem; /* Smaller icon */
+    transition: transform 0.3s ease;
+  }
+
+  /* Smaller pulse effect */
+  @keyframes pulse {
+    0% { transform: scale(1); opacity: 0; }
+    50% { opacity: 0.7; }
+    100% { transform: scale(1.15); opacity: 0; } /* Reduced scale */
+  }
+
+  /* Mobile version */
+  @media (max-width: 768px) {
+    .floating-home-button {
+      padding: 0.6rem;
+      bottom: 15px;
+      right: 15px;
+    }
+    .button-text {
+      display: none;
+    }
+    .button-icon {
+      font-size: 1.2rem;
+      margin-right: 0;
+    }
+  }
+</style>
+
+
+  <script>
+  // Fungsi untuk accordion
+  const headers = document.querySelectorAll('.accordion-header');
+  headers.forEach(header => {
+    header.addEventListener('click', () => {
+      header.classList.toggle('active');
+      const body = header.nextElementSibling;
+      body.style.display = (body.style.display === 'block') ? 'none' : 'block';
+    });
+  });
+
+  // Fungsi untuk tabs
+  const tabs = document.querySelectorAll('.tab');
+  const tensesContent = document.getElementById('tenses-content');
+  const allAccordions = document.querySelectorAll('.accordion');
+  
+  // Mapping antara tab dan konten
+  const tabMap = {
+    'Basic Rules': ['Nouns', 'Verbs', 'Subject + Verb Agreement', 'Articles', 
+                   'Plurals', 'Pronouns', 'Adjective Order', 'Prepositions',
+                   'Conjunctions', 'Question Formation', 'Negation', 'Capitalization'],
+    'Tenses': ['Present Simple Tense', 'Present Continuous Tense', 'Present Perfect Tense',
+              'Present Perfect Continuous Tense', 'Past Simple Tense', 'Past Continuous Tense',
+              'Past Perfect Tense', 'Past Perfect Continuous Tense', 'Simple Future Tense',
+              'Future Continuous Tense', 'Future Perfect Tense', 'Future Perfect Continuous Tense',
+              'Simple Past Future Tense', 'Past Future Continuous Tense', 'Past Future Perfect Tense',
+              'Past Future Perfect Continuous Tense'],
+    'Conditionals': ['Zero Conditional', 'First Conditional', 'Second Conditional', 'Third Conditional'],
+    'Participles': ['Participles'],
+    'Agreements': ['Agreements'],
+    'Passive & Active': ['Passive & Active']
+  };
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Reset semua tab
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      
+      // Sembunyikan semua konten
+      allAccordions.forEach(acc => acc.style.display = 'none');
+      if (tensesContent) tensesContent.style.display = 'none';
+      
+      // Tampilkan konten yang sesuai
+      const tabName = tab.textContent.trim();
+      if (tabMap[tabName]) {
+        tabMap[tabName].forEach(contentName => {
+          document.querySelectorAll('.accordion-header').forEach(header => {
+            if (header.textContent.trim() === contentName) {
+              header.parentElement.style.display = 'block';
+            }
+          });
+        });
+      }
+    });
+  });
+
+  // Tampilkan Basic Rules secara default
+  document.querySelector('.tab.active').click();
+</script>
+</head>
+
+
+</body>
+</html>

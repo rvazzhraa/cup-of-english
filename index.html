@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cup of English</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background: #fefaff;
+      color: #333;
+      line-height: 1.6;
+      padding-top: 80px; /* Increased padding to account for fixed header */
+    }
+
+    /* Improved Navigation */
+    #menu-toggle {
+      position: fixed;
+      top: 1.5rem;
+      left: 1.5rem;
+      z-index: 1100;
+      padding: 0.5rem 1rem;
+      border: none;
+      background-color: #a855f7;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    #menu-toggle:hover {
+      background-color: #9333ea;
+      transform: scale(1.05);
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -280px;
+      width: 260px;
+      height: 100vh;
+      background: #f1e8ff;
+      padding: 5rem 1rem 1rem; /* Added top padding for close button */
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+      transition: left 0.2s ease-out;
+      z-index: 1000;
+      overflow-y: auto;
+      will-change: left;
+    }
+
+    .sidebar.show {
+      left: 0;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      color: #4b5563;
+      background: #fff;
+      padding: 0.8rem 1.2rem;
+      border-radius: 12px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      border-left: 4px solid transparent;
+      margin-bottom: 0.5rem;
+    }
+
+    .sidebar a:hover {
+      background: #e9d5ff;
+      transform: translateX(5px);
+      border-left: 4px solid #a855f7;
+      color: #7e22ce;
+    }
+
+    .sidebar a i {
+      font-size: 1.2rem;
+      width: 24px;
+      text-align: center;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      text-align: center;
+      padding: 1rem;
+      background: #f1e8ff;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      z-index: 100;
+      animation: slideDown 0.5s ease;
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-100%); }
+      to { transform: translateY(0); }
+    }
+
+    /* Main Content Styling */
+    .hero {
+      text-align: center;
+      padding: 3rem 1rem;
+      background: linear-gradient(to right, #f7ebff, #e9f1ff);
+      margin-bottom: 2rem;
+      animation: fadeIn 1s ease;
+    }
+
+    .hero h2 {
+      font-size: 2rem;
+      color: #802be2;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: #555;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .phrase-box {
+      background: #fff;
+      border-radius: 15px;
+      padding: 1.5rem;
+      max-width: 700px;
+      margin: 2rem auto;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      animation: fadeInLeft 1s ease;
+    }
+
+    .phrase-box h3 {
+      color: #d60052;
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+    }
+
+    .phrase {
+      background: #ffeef8;
+      padding: 1.2rem;
+      border-radius: 10px;
+    }
+
+    .phrase strong {
+      font-size: 1.2rem;
+      color: #6a1fc2;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .phrase em {
+      color: #888;
+      display: block;
+      margin: 0.5rem 0;
+      font-style: italic;
+    }
+
+    .phrase p {
+      color: #555;
+      line-height: 1.6;
+    }
+
+    .extra-section {
+      background: #fff5ff;
+      padding: 2rem 1.5rem;
+      margin: 2rem auto;
+      max-width: 700px;
+      text-align: center;
+      border-radius: 15px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      animation: fadeInRight 1s ease;
+    }
+
+    .extra-section h3 {
+      color: #802be2;
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+    }
+
+    .extra-section p {
+      color: #555;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .sections {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem 1rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      text-align: left;
+      transition: transform 0.3s ease;
+      animation: fadeInUp 0.6s ease forwards;
+      opacity: 0;
+      animation-delay: calc(var(--order) * 0.1s);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .card h4 {
+      color: #6a1fc2;
+      margin-bottom: 0.8rem;
+      font-size: 1.2rem;
+    }
+
+    .card p {
+      color: #555;
+      margin-bottom: 1.2rem;
+      line-height: 1.5;
+    }
+
+    .card button {
+      background: #ffd9ec;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 10px;
+      color: #c2185b;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .card button:hover {
+      background: #ffc1dc;
+      transform: translateY(-2px);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.9rem;
+      color: #999;
+      margin-top: 3rem;
+    }
+
+    footer span {
+      color: #ff69b4;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes fadeInRight {
+      from {
+        opacity: 0;
+        transform: translateX(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* Overlay improvement */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.4);
+      background: rgba(0,0,0,0.3);
+      z-index: 900;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .overlay.show {
+      display: block;
+      opacity: 1;
+    }
+
+    /* Close button inside sidebar */
+    .close-sidebar {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #6b7280;
+      z-index: 1100;
+    }
+
+    .close-sidebar:hover {
+      color: #4b5563;
+    }
+  </style>
+  <!-- Add Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <button id="menu-toggle">☰ Menu</button>
+  <div class="sidebar" id="sidebar">
+    <button class="close-sidebar" id="close-sidebar">✕</button>
+    <a href="#"><i class="fas fa-home"></i> Home</a>
+    <a href="vocabulary.html"><i class="fas fa-book-open"></i> Vocabulary</a>
+    <a href="grammar.html"><i class="fas fa-file-alt"></i> Grammar</a>
+    <a href="verb.html"><i class="fas fa-infinity"></i> Verb Forms</a>
+    <a href="practice.html"><i class="fas fa-pen-fancy"></i> Practice</a>
+  </div>
+  <div class="overlay" id="overlay"></div>
+
+  <header>
+    <h1>☕ Cup <span class="brand">of English</span></h1>
+    <p class="tagline">Sip slowly, learn easily, with Reva!</p>
+  </header>
+
+  <section class="hero">
+    <h2>Learn English the Fun Way</h2>
+    <p>A beautiful journey to English fluency with simple lessons and practice exercises</p>
+  </section>
+
+  <section class="phrase-box">
+    <h3>✨ Phrase of the Day</h3>
+    <div class="phrase">
+      <strong>The early bird catches the worm</strong>
+      <em>Siapa cepat dia dapat</em>
+      <p>This idiom means that people who wake up and start work early have a better chance of success.</p>
+    </div>
+  </section>
+
+  <section class="extra-section">
+    <h3>🌍 Why Learn English?</h3>
+    <p>English is the key to global communication, education, and opportunities. Whether you're traveling, studying, or working mastering English opens doors worldwide.</p>
+  </section>
+
+  <section class="sections">
+    <div class="card">
+      <h4>✨ Learn Vocabulary</h4>
+      <p>Build your English vocabulary with common words and phrases</p>
+      <button onclick="location.href='vocabulary.html'">Explore Learn</button>
+    </div>
+    <div class="card">
+      <h4>💬 Master Grammar</h4>
+      <p>Understand the rules that make English work</p>
+      <button onclick="location.href='grammar.html'">Explore Master</button>
+    </div>
+    <div class="card">
+      <h4>🎖 Verb Forms & Usage</h4>
+      <p>Learn base forms, past tense, and participles of verbs</p>
+      <button onclick="location.href='verb.html'">Explore Verb</button>
+    </div>
+    <div class="card">
+      <h4>⚡ Practice Exercises</h4>
+      <p>Test your knowledge with interactive quizzes</p>
+      <button onclick="location.href='practice.html'">Explore Practice</button>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 Cup Of English. All rights reserved.<br>
+    Made with <span>♡</span> for English learners
+  </footer>
+
+  <script>
+    const toggleBtn = document.getElementById('menu-toggle');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    const closeBtn = document.getElementById('close-sidebar');
+
+    // Toggle sidebar
+    toggleBtn.addEventListener('click', () => {
+      sidebar.classList.add('show');
+      overlay.classList.add('show');
+    });
+
+    // Close sidebar with close button
+    closeBtn.addEventListener('click', () => {
+      sidebar.classList.remove('show');
+      overlay.classList.remove('show');
+    });
+
+    // Close sidebar with overlay
+    overlay.addEventListener('click', () => {
+      sidebar.classList.remove('show');
+      overlay.classList.remove('show');
+    });
+
+    // Close sidebar when clicking on links
+    const navLinks = document.querySelectorAll('.sidebar a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        sidebar.classList.remove('show');
+        overlay.classList.remove('show');
+      });
+    });
+
+    // Add animation delays to cards
+    document.addEventListener('DOMContentLoaded', () => {
+      const cards = document.querySelectorAll('.card');
+      cards.forEach((card, index) => {
+        card.style.setProperty('--order', index);
+      });
+    });
+  </script>
+</body>
+</html>
